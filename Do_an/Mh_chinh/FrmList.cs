@@ -18,6 +18,8 @@ namespace Mh_chinh
         Node Tail;
         int speed;
         int index;
+        bool flag = false; 
+        int collison; //Xác định node đang kéo thả
         public FrmList()
         {
             InitializeComponent();
@@ -62,11 +64,6 @@ namespace Mh_chinh
             for (i = 0; i < myListNode.Count; i++)
                 if (myListNode[i].Info == str) return false;
             return true;
-        }
-        protected override void OnMouseClick(MouseEventArgs e)
-        {
-            base.OnMouseClick(e);
-            MessageBox.Show(e.X + " , " + e.Y);
         }
         public void Draw_LinkList(object sender, PaintEventArgs pea)
         {
@@ -649,9 +646,142 @@ namespace Mh_chinh
             }
             else
                 timer.Stop();
-        }       
-        
+        }
+
         // Di chuyển node bằng kéo thả chuột
-        //
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            Rectangle rect = new Rectangle(e.X, e.Y, 5, 5);
+            int i;
+            for (i = 0; i < myListNode .Count; i++)
+            {
+                if (myListNode [i].Rec.IntersectsWith (rect))
+                {
+                    flag = true;
+                    collison = i;
+                    if (i > 0 && i < myListNode.Count - 1)
+                    {
+                        myListNode[i] = new Node(myListNode[i].Info,
+                          new Point(e.X, e.Y),
+                          e.X + myListNode [i].Rec.Width , e.Y + myListNode[i].Rec.Height / 2,
+                          myListNode[i].Link.End.X, myListNode[i].Link.End.Y);
+
+                        myListNode[i + 1].Link.End = new Point(myListNode[i].Pos.X,
+                            myListNode[i].Pos.Y + myListNode[i].Rec.Height / 2);
+                    }
+                    else
+                        if (i == 0)
+                    {
+                        myListNode[i] = new Node(myListNode[i].Info,
+                          new Point(e.X, e.Y));
+
+                        myListNode[i + 1].Link.End = new Point(myListNode[i].Pos.X,
+                            myListNode[i].Pos.Y + myListNode[i].Rec.Height / 2);
+
+                        Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
+                            myListNode[0].Pos.Y + myListNode[0].Rec.Height);
+                    }
+                    else
+                    {
+                        myListNode[i] = new Node(myListNode[i].Info,
+                          new Point(e.X, e.Y),
+                          e.X + myListNode [i].Rec.Width , e.Y + myListNode[i].Rec.Height / 2,
+                          myListNode[i].Link.End.X, myListNode[i].Link.End.Y);
+
+                        Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[0].Rec.Width / 2,
+                            myListNode[myListNode.Count - 1].Pos.Y);
+                    }
+                }
+            }
+            Invalidate();
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            if (flag == true)
+            {
+                if (collison  > 0 && collison < myListNode.Count - 1)
+                {
+                    myListNode[collison] = new Node(myListNode[collison].Info,
+                      new Point(e.X, e.Y),
+                      e.X + myListNode[collison].Rec.Width, e.Y + myListNode[collison].Rec.Height / 2,
+                      myListNode[collison].Link.End.X, myListNode[collison].Link.End.Y);
+
+                    myListNode[collison + 1].Link.End = new Point(myListNode[collison].Pos.X,
+                        myListNode[collison].Pos.Y + myListNode[collison].Rec.Height / 2);
+                }
+                else
+                        if (collison == 0)
+                {
+                    myListNode[collison] = new Node(myListNode[collison].Info,
+                          new Point(e.X, e.Y));
+
+                    myListNode[collison + 1].Link.End = new Point(myListNode[collison].Pos.X,
+                        myListNode[collison].Pos.Y + myListNode[collison].Rec.Height / 2);
+
+                    Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
+                        myListNode[0].Pos.Y + myListNode[0].Rec.Height);
+                }
+                else
+                {
+                    myListNode[collison] = new Node(myListNode[collison].Info,
+                          new Point(e.X, e.Y),
+                          e.X + myListNode[collison].Rec.Width, e.Y + myListNode[collison].Rec.Height / 2,
+                          myListNode[collison].Link.End.X, myListNode[collison].Link.End.Y);
+
+                    Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[0].Rec.Width / 2,
+                        myListNode[myListNode.Count - 1].Pos.Y);
+                }
+
+            }
+            Invalidate();
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            if (flag == true)
+            {
+                if (collison > 0 && collison < myListNode.Count - 1)
+                {
+                    myListNode[collison] = new Node(myListNode[collison].Info,
+                      new Point(e.X, e.Y),
+                      e.X + myListNode[collison].Rec.Width, e.Y + myListNode[collison].Rec.Height / 2,
+                      myListNode[collison].Link.End.X, myListNode[collison].Link.End.Y);
+
+                    myListNode[collison + 1].Link.End = new Point(myListNode[collison].Pos.X,
+                        myListNode[collison].Pos.Y + myListNode[collison].Rec.Height / 2);
+                }
+                else
+                        if (collison == 0)
+                {
+                    myListNode[collison] = new Node(myListNode[collison].Info,
+                          new Point(e.X, e.Y));
+
+                    myListNode[collison + 1].Link.End = new Point(myListNode[collison].Pos.X,
+                        myListNode[collison].Pos.Y + myListNode[collison].Rec.Height / 2);
+
+                    Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
+                        myListNode[0].Pos.Y + myListNode[0].Rec.Height);
+                }
+                else
+                {
+                    myListNode[collison] = new Node(myListNode[collison].Info,
+                          new Point(e.X, e.Y),
+                          e.X + myListNode[collison].Rec.Width, e.Y + myListNode[collison].Rec.Height / 2,
+                          myListNode[collison].Link.End.X, myListNode[collison].Link.End.Y);
+
+                    Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[0].Rec.Width / 2,
+                        myListNode[myListNode.Count - 1].Pos.Y);
+                }
+                flag = false;
+            }
+            Invalidate();
+        }
+
+        // Tạo mới List bằng file có sẵn
+
     }
 }

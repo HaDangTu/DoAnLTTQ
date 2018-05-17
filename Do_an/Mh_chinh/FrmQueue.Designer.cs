@@ -38,6 +38,7 @@
             this.tbDeqVal = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbMElement = new System.Windows.Forms.TextBox();
+            this.btCreate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSpeed)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,11 +132,22 @@
             this.tbMElement.Size = new System.Drawing.Size(100, 20);
             this.tbMElement.TabIndex = 9;
             // 
+            // btCreate
+            // 
+            this.btCreate.Location = new System.Drawing.Point(283, 57);
+            this.btCreate.Name = "btCreate";
+            this.btCreate.Size = new System.Drawing.Size(75, 23);
+            this.btCreate.TabIndex = 10;
+            this.btCreate.Text = "Create New";
+            this.btCreate.UseVisualStyleBackColor = true;
+            this.btCreate.Click += new System.EventHandler(this.btCreate_Click);
+            // 
             // FrmQueue
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 661);
+            this.Controls.Add(this.btCreate);
             this.Controls.Add(this.tbMElement);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbDeqVal);
@@ -168,5 +180,6 @@
         private System.Windows.Forms.TextBox tbDeqVal;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbMElement;
+        private System.Windows.Forms.Button btCreate;
     }
 }

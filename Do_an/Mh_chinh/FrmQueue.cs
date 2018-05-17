@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
 namespace Mh_chinh
 {
     public partial class FrmQueue : Form
@@ -69,6 +69,7 @@ namespace Mh_chinh
                 myQueue.Add(node);
                 max_Element--;
                 tbMElement.Text = max_Element.ToString();
+
                 Timer timer1 = new Timer();
                 timer1.Interval = trbAniSpeed.Value;
                 timer1.Enabled = true;
@@ -166,6 +167,7 @@ namespace Mh_chinh
                         myQueue[i] = new Node(myQueue[i].Info,
                             new Point(myQueue[i].Pos.X, myQueue[i].Pos.Y - speed));
                 }
+                else timer.Stop();
                 Invalidate();
             }
         }
@@ -201,22 +203,51 @@ namespace Mh_chinh
             {
                 myQueue[0] = new Node(myQueue[0].Info,
                             new Point(e.X, e.Y));
-                if (myQueue[0].Pos.X > container.Pos.X && 
-                    myQueue[0].Pos.X < container.Pos.X + container.Rec.Width && 
-                    myQueue[0].Pos.Y > container.Pos.Y && 
-                    myQueue[0].Pos.Y < container.Pos.Y + container.Rec.Height)
-                { }
-                else
-                {
-                    Timer timer1 = new Timer();
-                    timer1.Interval = trbAniSpeed.Value;
-                    timer1.Enabled = true;
-                    timer1.Tick += new EventHandler(timerDequeue1_Tick);
+                if (myQueue[0].Rec.IntersectsWith (container.Rec) == false)
+                { 
+                    Timer timer = new Timer();
+                    timer.Interval = trbAniSpeed.Value;
+                    timer.Enabled = true;
+                    timer.Tick += new EventHandler(timerDequeue2_Tick);
                     Paint += new PaintEventHandler(Draw_Queue);
                 }
                 flag = false;
             }
             Invalidate();
         }
+
+        private void btCreate_Click(object sender, EventArgs e)
+        {
+            using (StreamReader stReader = new StreamReader("Init.txt"))
+            {
+                string value;
+                while ((value = stReader.ReadLine()) != null)
+                {
+                    Node node = new Node(value, new Point(400, 120));
+                    myQueue.Add(node);
+
+                    max_Element--;
+                    tbMElement.Text = max_Element.ToString();
+
+                    Timer timer1 = new Timer();
+                    timer1.Interval = trbAniSpeed.Value;
+                    timer1.Enabled = true;
+                    timer1.Tick += new EventHandler(timerEnqueue1_Tick);
+                    Paint += new PaintEventHandler(Draw_Queue);
+                    //Node node = new Node(value,
+                    //    new Point(container.Pos.X, container.Pos.Y + myQueue.Count * 40));
+                    //myQueue.Add(node);
+
+                    //max_Element--;
+                    //tbMElement.Text = max_Element.ToString();
+
+                }
+
+            }
+            
+           
+        }
+
+
     }
 }
