@@ -811,5 +811,6 @@ namespace Mh_chinh
 
             Paint += new PaintEventHandler(Draw_LinkList);
         }
+
     }
 }
