@@ -71,6 +71,7 @@
             this.btAddBefore.TabIndex = 2;
             this.btAddBefore.Text = "Add Before";
             this.btAddBefore.UseVisualStyleBackColor = true;
+            this.btAddBefore.Click += new System.EventHandler(this.btAddBefore_Click);
             // 
             // btAddFirst
             // 
