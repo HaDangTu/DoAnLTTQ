@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
 namespace Mh_chinh
 {
 
@@ -782,6 +782,34 @@ namespace Mh_chinh
         }
 
         // Tạo mới List bằng file có sẵn
+        private void btCreatNew_Click(object sender, EventArgs e)
+        {
+            using (StreamReader strreader = new StreamReader("Init.txt"))
+            {
+                string value;
+                while ((value = strreader.ReadLine()) != null)
+                {
+                    myListNode.Insert(0, new Node(value,
+                        new Point(myListNode.Count * 120 + 120, 260),
+                        200 + myListNode.Count * 120, 280,
+                        200 + myListNode.Count * 120 + 40, 280));
+                }
+            }
+            myListNode[0] = new Node(myListNode[0].Info,
+                myListNode[0].Pos,
+                myListNode[0].Link.Start.X, myListNode [0].Link .Start .Y,
+                myListNode[0].Link.Start.X, myListNode[0].Link.Start.Y);
 
+            Head.Link.Start = new Point(Head.Pos.X + Head.Rec.Width / 2,
+                Head.Pos.Y + Head.Rec.Height);
+            Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[myListNode.Count - 1].Rec.Width / 2,
+                myListNode[myListNode.Count - 1].Pos.Y);
+
+            Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
+            Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
+                myListNode[0].Pos.Y + myListNode[0].Rec.Height);
+
+            Paint += new PaintEventHandler(Draw_LinkList);
+        }
     }
 }

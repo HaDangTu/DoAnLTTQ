@@ -42,6 +42,7 @@
             this.btDelLast = new System.Windows.Forms.Button();
             this.btDelAfter = new System.Windows.Forms.Button();
             this.btDelBefore = new System.Windows.Forms.Button();
+            this.btCreatNew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -176,12 +177,23 @@
             this.btDelBefore.Text = "Delete Before";
             this.btDelBefore.UseVisualStyleBackColor = true;
             // 
+            // btCreatNew
+            // 
+            this.btCreatNew.Location = new System.Drawing.Point(728, 34);
+            this.btCreatNew.Name = "btCreatNew";
+            this.btCreatNew.Size = new System.Drawing.Size(75, 23);
+            this.btCreatNew.TabIndex = 17;
+            this.btCreatNew.Text = "Create New";
+            this.btCreatNew.UseVisualStyleBackColor = true;
+            this.btCreatNew.Click += new System.EventHandler(this.btCreatNew_Click);
+            // 
             // FrmList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1350, 661);
+            this.Controls.Add(this.btCreatNew);
             this.Controls.Add(this.btDelBefore);
             this.Controls.Add(this.btDelAfter);
             this.Controls.Add(this.btDelLast);
@@ -222,5 +234,6 @@
         private System.Windows.Forms.Button btDelLast;
         private System.Windows.Forms.Button btDelAfter;
         private System.Windows.Forms.Button btDelBefore;
+        private System.Windows.Forms.Button btCreatNew;
     }
 }

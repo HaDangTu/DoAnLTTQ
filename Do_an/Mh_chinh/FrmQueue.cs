@@ -222,24 +222,14 @@ namespace Mh_chinh
             {
                 string value;
                 while ((value = stReader.ReadLine()) != null)
-                {
-                    Node node = new Node(value, new Point(400, 120));
+                {                  
+                    Node node = new Node(value,
+                        new Point(container.Pos.X, container.Pos.Y + myQueue.Count * 40));
                     myQueue.Add(node);
 
                     max_Element--;
                     tbMElement.Text = max_Element.ToString();
-
-                    Timer timer1 = new Timer();
-                    timer1.Interval = trbAniSpeed.Value;
-                    timer1.Enabled = true;
-                    timer1.Tick += new EventHandler(timerEnqueue1_Tick);
                     Paint += new PaintEventHandler(Draw_Queue);
-                    //Node node = new Node(value,
-                    //    new Point(container.Pos.X, container.Pos.Y + myQueue.Count * 40));
-                    //myQueue.Add(node);
-
-                    //max_Element--;
-                    //tbMElement.Text = max_Element.ToString();
 
                 }
 
