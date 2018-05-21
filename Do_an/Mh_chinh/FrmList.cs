@@ -784,6 +784,8 @@ namespace Mh_chinh
         // Tạo mới List bằng file có sẵn
         private void btCreatNew_Click(object sender, EventArgs e)
         {
+            if (myListNode.Count > 0)
+                myListNode.Clear();
             using (StreamReader strreader = new StreamReader("Init.txt"))
             {
                 string value;

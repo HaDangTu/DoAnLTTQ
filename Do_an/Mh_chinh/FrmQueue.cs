@@ -65,6 +65,13 @@ namespace Mh_chinh
         {
             if (Check(tbInput.Text) == true && isValidNode(tbInput.Text) == true)
             {
+                if (max_Element != Int16.Parse(tbMElement.Text))
+                {
+                    max_Element = Int16.Parse(tbMElement.Text);
+                    container = new Container(new Point(120, 120), 80, max_Element * 40);
+                    Paint += new PaintEventHandler(Init);
+                }
+
                 Node node = new Node(tbInput.Text, new Point(400, 120));
                 myQueue.Add(node);
                 max_Element--;
@@ -218,24 +225,24 @@ namespace Mh_chinh
 
         private void btCreate_Click(object sender, EventArgs e)
         {
-            using (StreamReader stReader = new StreamReader("Init.txt"))
-            {
-                string value;
-                while ((value = stReader.ReadLine()) != null)
-                {                  
-                    Node node = new Node(value,
-                        new Point(container.Pos.X, container.Pos.Y + myQueue.Count * 40));
-                    myQueue.Add(node);
+            if (myQueue.Count > 0)
+                myQueue.Clear();
+                using (StreamReader stReader = new StreamReader("Init.txt"))
+                {
+                    string value;
+                    while ((value = stReader.ReadLine()) != null)
+                    {
+                        Node node = new Node(value,
+                            new Point(container.Pos.X, container.Pos.Y + myQueue.Count * 40));
+                        myQueue.Add(node);
 
-                    max_Element--;
-                    tbMElement.Text = max_Element.ToString();
-                    Paint += new PaintEventHandler(Draw_Queue);
+                        max_Element--;
+                        tbMElement.Text = max_Element.ToString();
+                        Paint += new PaintEventHandler(Draw_Queue);
+
+                    }
 
                 }
-
-            }
-            
-           
         }
 
 
