@@ -302,7 +302,35 @@ namespace Mh_chinh
         }
 
         //Thêm 1 node vào trước 1 node cho trước
-
+        private void btAddBefore_Click(object sender, EventArgs e)
+        {
+            if (Check(tbInput.Text) == true && (Check(tbIndex.Text) == true)
+                && isValidNode (tbInput.Text))
+            {
+                Node node = new Node(tbInput.Text, new Point(240, 120));
+                index = Find_Node(tbIndex.Text);
+                if (index == myListNode.Count - 1) //Trường hợp cần chèn node lên đầu danh sách
+                {
+                    myListNode.Add(node);
+                    Timer t = new Timer();
+                    t.Interval = trbAniSp.Value;
+                    t.Enabled = true;
+                    t.Tick += new EventHandler(TimerAddFirst1_Tick);
+                }
+                else
+                {
+                    index = index + 1;
+                    myListNode.Insert(index, node);
+                    Paint += new PaintEventHandler(Draw_LinkList);
+                    index++;
+                    Timer timer1 = new Timer();
+                    timer1.Enabled = true;
+                    timer1.Interval = 60;
+                    timer1.Tick += new EventHandler(timerAddAfter1_Tick);
+                }
+            }
+            else MessageBox.Show("Lỗi nhập giá trị");
+        }
         //Xóa node trước 1 node cho trước
 
 
@@ -311,18 +339,30 @@ namespace Mh_chinh
         //Thêm 1 node vào sau 1 node cho trước
         private void btAddAfter_Click(object sender, EventArgs e)
         {
-            if (Check(tbInput.Text) == true && (Check(tbIndex.Text) == true) && isValidNode(tbInput.Text) == true)
+            if (Check(tbInput.Text) == true && (Check(tbIndex.Text) == true) 
+                && isValidNode(tbInput.Text) == true)
             {
                 Node node = new Node(tbInput.Text, new Point(240, 120));
                 index = Find_Node(tbIndex.Text);
-                myListNode.Insert(index, node);
-                index++;
-                Paint += new PaintEventHandler(Draw_LinkList);
-                Timer timer1 = new Timer();
-                timer1.Enabled = true;
-                timer1.Interval = trbAniSp .Value;
-                timer1.Tick += new EventHandler(timerAddAfter1_Tick);
-                
+                if (index == 0)
+                {
+                    myListNode.Insert(index, node);
+                    Timer t = new Timer();
+                    t.Interval = trbAniSp.Value;
+                    t.Enabled = true;
+                    t.Tick += new EventHandler(TimerAddLast_Tick);
+                }
+                else
+                {
+                    myListNode.Insert(index, node);
+
+                    index++;
+                    Paint += new PaintEventHandler(Draw_LinkList);
+                    Timer timer1 = new Timer();
+                    timer1.Enabled = true;
+                    timer1.Interval = trbAniSp.Value;
+                    timer1.Tick += new EventHandler(timerAddAfter1_Tick);
+                }
             }
             else MessageBox.Show("Lỗi nhập giá trị hoặc node đã có trong danh sách");
         }
@@ -417,12 +457,16 @@ namespace Mh_chinh
             if (Check(tbIndex .Text) == true)
             {
                 index = Find_Node(tbIndex.Text);
-                
-                Timer timer1 = new Timer();
-                timer1.Interval = trbAniSp .Value;
-                timer1.Enabled = true;
-                timer1.Tick += new EventHandler (timerDelAfter1_Tick);
-                Paint += new PaintEventHandler(Draw_LinkList);
+                if (index == 0)
+                    MessageBox.Show("Không còn node nào phía sau của node cần xóa");               
+                else
+                {
+                    Timer timer1 = new Timer();
+                    timer1.Interval = trbAniSp.Value;
+                    timer1.Enabled = true;
+                    timer1.Tick += new EventHandler(timerDelAfter1_Tick);
+                    Paint += new PaintEventHandler(Draw_LinkList);
+                }
             }else MessageBox.Show("Thông tin node cần xóa phía sau bị trống");
         }
 
@@ -814,132 +858,122 @@ namespace Mh_chinh
             Paint += new PaintEventHandler(Draw_LinkList);
         }
 
-        private void btAddBefore_Click(object sender, EventArgs e)
-        {
-            if (Check(tbInput.Text) == true && (Check(tbIndex.Text) == true))
-            {
-                Node node = new Node(tbInput.Text, new Point(240, 120));
+        
 
-                index = Find_Node(tbIndex.Text);
-                index = index + 1;
-                myListNode.Insert(index, node);
-                Paint += new PaintEventHandler(AddBefore);
-                index++;
-                Timer timer1 = new Timer();
-                timer1.Enabled = true;
-                timer1.Interval = 60;
-                timer1.Tick += new EventHandler(timerAddBefore1_Tick);
+        //private void AddBefore(object sender, PaintEventArgs pea)
+        //{
+        //    int i;
+        //    for (i = 0; i < myListNode.Count; i++)
+        //        myListNode[i].Draw_Node(pea.Graphics);
+        //}
 
-            }
-            else MessageBox.Show("Lỗi nhập giá trị");
-        }
-
-        private void AddBefore(object sender, PaintEventArgs pea)
-        {
-            int i;
-            for (i = 0; i < myListNode.Count; i++)
-                myListNode[i].Draw_Node(pea.Graphics);
-        }
-
-        private void timerAddBefore1_Tick(object sender, EventArgs e)
-        {
-            Timer t = (Timer)sender;
+        //private void timerAddBefore1_Tick(object sender, EventArgs e)
+        //{
+        //    Timer t = (Timer)sender;
 
 
-            myListNode[index - 1].Link.Start = new Point(myListNode[index - 1].Pos.X + myListNode[index - 1].Rec.Width,
-                myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
+        //    myListNode[index - 1].Link.Start = new Point(myListNode[index - 1].Pos.X + myListNode[index - 1].Rec.Width,
+        //        myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
 
-            myListNode[index - 1].Link.End = new Point(myListNode[index - 2].Pos.X,
-                myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
-            Invalidate();
-            t.Stop();
+        //    myListNode[index - 1].Link.End = new Point(myListNode[index - 2].Pos.X,
+        //        myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
+        //    Invalidate();
+        //    t.Stop();
 
-            Timer timer2 = new Timer();
+        //    Timer timer2 = new Timer();
 
-            timer2.Interval = 60;
-            timer2.Enabled = true;
-            timer2.Tick += new EventHandler(timerAddBefore2_Tick);
-        }
+        //    timer2.Interval = 60;
+        //    timer2.Enabled = true;
+        //    timer2.Tick += new EventHandler(timerAddBefore2_Tick);
+        //}
 
-        private void timerAddBefore2_Tick(object sender, EventArgs e)
-        {
-            Timer t = (Timer)sender;
-            myListNode[index].Link.End = new Point(myListNode[index - 1].Pos.X,
-               myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
+        //private void timerAddBefore2_Tick(object sender, EventArgs e)
+        //{
+        //    Timer t = (Timer)sender;
+        //    myListNode[index].Link.End = new Point(myListNode[index - 1].Pos.X,
+        //       myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
 
-            Invalidate();
-            t.Stop();
+        //    Invalidate();
+        //    t.Stop();
 
-            Timer timer3 = new Timer();
-            timer3.Interval = 60;
-            timer3.Enabled = true;
-            timer3.Tick += new EventHandler(timerAddBefore3_Tick);
-        }
+        //    Timer timer3 = new Timer();
+        //    timer3.Interval = 60;
+        //    timer3.Enabled = true;
+        //    timer3.Tick += new EventHandler(timerAddBefore3_Tick);
+        //}
 
-        private void timerAddBefore3_Tick(object sender, EventArgs e)
-        {
-            Timer t = (Timer)sender;
-            int temp = myListNode[0].Pos.X;
-            if (temp < myListNode.Count * 120)
-            {
-                int i;
-                for (i = index - 2; i > 0; i--)
-                {
-                    myListNode[i] = new Node(myListNode[i].Info,
-                     new Point(myListNode[i - 1].Pos.X - 120 + speed, myListNode[i - 1].Pos.Y));
+        //private void timerAddBefore3_Tick(object sender, EventArgs e)
+        //{
+        //    Timer t = (Timer)sender;
+        //    int temp = myListNode[0].Pos.X;
+        //    if (temp < myListNode.Count * 120)
+        //    {
+        //        int i;
+        //        for (i = 0; i < index; i++)
+        //        {
+        //            //myListNode[i] = new Node(myListNode[i].Info,
+        //            // new Point(myListNode[i - 1].Pos.X - 120 + speed, myListNode[i - 1].Pos.Y));
 
-                    myListNode[i].Link.Start = new Point(myListNode[i].Pos.X + myListNode[i].Rec.Width,
-                        myListNode[i].Pos.Y + myListNode[i].Rec.Height / 2);
-                    myListNode[i].Link.End = new Point(myListNode[i - 1].Pos.X + speed,
-                       myListNode[i].Pos.Y + myListNode[i].Rec.Height / 2);
-                }
+        //            //myListNode[i].Link.Start = new Point(myListNode[i].Pos.X + myListNode[i].Rec.Width,
+        //            //    myListNode[i].Pos.Y + myListNode[i].Rec.Height / 2);
+        //            //myListNode[i].Link.End = new Point(myListNode[i - 1].Pos.X + speed,
+        //            //   myListNode[i].Pos.Y + myListNode[i].Rec.Height / 2);
 
-                myListNode[0] = new Node(myListNode[0].Info,
-                    new Point(myListNode[0].Pos.X + speed, myListNode[0].Pos.Y));
+        //            myListNode[i] = new Node(myListNode[i].Info,
+        //                new Point(myListNode[i].Pos.X + speed, myListNode[i].Pos.Y),
+        //                myListNode[i].Link.Start.X + speed, myListNode[i].Link.Start.Y,
+        //                myListNode[i].Link.End.X + speed, myListNode[i].Link.End.Y);
+        //        }
 
-                //myListNode[index].Link.End = new Point(myListNode[index + 1].Pos.X, 
-                //    myListNode[index + 1].Pos.Y + myListNode[index + 1].Rec.Height);
+        //        myListNode[index + 2].Link.End = new Point(myListNode[index + 1].Pos.X,
+        //            myListNode[index + 1].Pos.Y + myListNode[index + 1].Rec.Height / 2); 
 
-                //myListNode[index - 1].Link.Start = new Point(myListNode[index - 1].Pos.X + myListNode[index - 1].Rec.Width,
-                //    myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
-                myListNode[index - 1].Link.End = new Point(myListNode[index - 2].Pos.X,
-                    myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
+        //        //myListNode[0] = new Node(myListNode[0].Info,
+        //        //    new Point(myListNode[0].Pos.X + speed, myListNode[0].Pos.Y));
 
-                Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
-                Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
-                    myListNode[0].Pos.Y + myListNode[0].Rec.Height);
+        //        //myListNode[index].Link.End = new Point(myListNode[index + 1].Pos.X, 
+        //        //    myListNode[index + 1].Pos.Y + myListNode[index + 1].Rec.Height);
 
+        //        //myListNode[index - 1].Link.Start = new Point(myListNode[index - 1].Pos.X + myListNode[index - 1].Rec.Width,
+        //        //    myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
+        //        myListNode[index - 1].Link.End = new Point(myListNode[index - 2].Pos.X,
+        //            myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
 
-                Invalidate();
-            }
-            else
-            {
-                t.Stop();
-                Timer timer4 = new Timer();
-                timer4.Interval = 60;
-                timer4.Enabled = true;
-                timer4.Tick += timerAddBefore4_Tick;
-            }
-        }
-
-        private void timerAddBefore4_Tick(object sender, EventArgs e)
-        {
-
-            Timer t = (Timer)sender;
-            myListNode[index - 1] = new Node(myListNode[index - 1].Info,
-            new Point(myListNode[index].Pos.X + 120, myListNode[index].Pos.Y));
-
-            myListNode[index].Link.End = new Point(myListNode[index - 1].Pos.X,
-                myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
-
-            myListNode[index - 1].Link.Start = new Point(myListNode[index - 1].Pos.X + myListNode[index - 1].Rec.Width,
-                myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
-            myListNode[index - 1].Link.End = new Point(myListNode[index - 2].Pos.X,
-                myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
-            Invalidate();
-            t.Stop();
+        //        Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
+        //        Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
+        //            myListNode[0].Pos.Y + myListNode[0].Rec.Height);
 
 
-        }
+        //        Invalidate();
+        //    }
+        //    else
+        //    {
+        //        t.Stop();
+        //        Timer timer4 = new Timer();
+        //        timer4.Interval = 60;
+        //        timer4.Enabled = true;
+        //        timer4.Tick += timerAddBefore4_Tick;
+        //    }
+        //}
+
+        //private void timerAddBefore4_Tick(object sender, EventArgs e)
+        //{
+
+        //    Timer t = (Timer)sender;
+        //    myListNode[index - 1] = new Node(myListNode[index - 1].Info,
+        //    new Point(myListNode[index].Pos.X + 120, myListNode[index].Pos.Y));
+
+        //    myListNode[index].Link.End = new Point(myListNode[index - 1].Pos.X,
+        //        myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
+
+        //    myListNode[index - 1].Link.Start = new Point(myListNode[index - 1].Pos.X + myListNode[index - 1].Rec.Width,
+        //        myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
+        //    myListNode[index - 1].Link.End = new Point(myListNode[index - 2].Pos.X,
+        //        myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
+        //    Invalidate();
+        //    t.Stop();
+
+
+        //}
     }
 }
