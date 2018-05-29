@@ -36,6 +36,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbPopVal = new System.Windows.Forms.TextBox();
+            this.btCreate = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbMElement = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSpeed)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,11 +116,40 @@
             this.tbPopVal.Size = new System.Drawing.Size(100, 20);
             this.tbPopVal.TabIndex = 7;
             // 
+            // btCreate
+            // 
+            this.btCreate.Location = new System.Drawing.Point(626, 41);
+            this.btCreate.Name = "btCreate";
+            this.btCreate.Size = new System.Drawing.Size(75, 23);
+            this.btCreate.TabIndex = 8;
+            this.btCreate.Text = "Create new";
+            this.btCreate.UseVisualStyleBackColor = true;
+            this.btCreate.Click += new System.EventHandler(this.btCreate_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(68, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Max Element";
+            // 
+            // tbMElement
+            // 
+            this.tbMElement.Location = new System.Drawing.Point(86, 85);
+            this.tbMElement.Name = "tbMElement";
+            this.tbMElement.Size = new System.Drawing.Size(100, 20);
+            this.tbMElement.TabIndex = 10;
+            // 
             // FrmStack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 661);
+            this.Controls.Add(this.tbMElement);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btCreate);
             this.Controls.Add(this.tbPopVal);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -146,5 +178,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbPopVal;
+        private System.Windows.Forms.Button btCreate;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbMElement;
     }
 }
