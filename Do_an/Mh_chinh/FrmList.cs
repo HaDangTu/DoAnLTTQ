@@ -623,6 +623,7 @@ namespace Mh_chinh
             timer.Stop();
             Invalidate();
         }
+
         //Xóa node cuối
         private void btDelLast_Click(object sender, EventArgs e)
         {
@@ -858,7 +859,7 @@ namespace Mh_chinh
             Paint += new PaintEventHandler(Draw_LinkList);
         }
 
-        
+
 
         //private void AddBefore(object sender, PaintEventArgs pea)
         //{
