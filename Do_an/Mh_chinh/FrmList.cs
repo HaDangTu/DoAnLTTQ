@@ -216,7 +216,7 @@ namespace Mh_chinh
             else MessageBox.Show("Danh sách trống");
         }
 
-        public void timerDelFirst1_Tick(object sender, EventArgs e)
+        private void timerDelFirst1_Tick(object sender, EventArgs e)
         {
             Timer timer = (Timer)sender;
             if (myListNode.Count > 1)
@@ -240,7 +240,7 @@ namespace Mh_chinh
             timer1.Tick += new EventHandler(timerDelFirst2_Tick);
         }
 
-        public void timerDelFirst2_Tick(object sender, EventArgs e)
+        private void timerDelFirst2_Tick(object sender, EventArgs e)
         {
             Timer timer = (Timer)sender;
             //xóa liên kết giữa myListNode[myListNode.Count - 1] và myListNode[myListNode.Count - 2]
@@ -256,7 +256,7 @@ namespace Mh_chinh
 
         }
 
-        public void timerDelFirst3_Tick(object sender, EventArgs e)
+        private void timerDelFirst3_Tick(object sender, EventArgs e)
         {
             Timer timer = (Timer)sender;
             //Xóa myListNode[myListNode.Count - 1] trong mảng myListNode
@@ -271,7 +271,7 @@ namespace Mh_chinh
             
         }
 
-        public void timerDelFirst4_Tick(object sender, EventArgs e)
+        private void timerDelFirst4_Tick(object sender, EventArgs e)
         {
             Timer timer = (Timer)sender;
             if (myListNode.Count > 0)
@@ -490,7 +490,14 @@ namespace Mh_chinh
             {
                 index = Find_Node(tbIndex.Text);
                 if (index == 0)
-                    MessageBox.Show("Không còn node nào phía sau của node cần xóa");               
+                    MessageBox.Show("Không còn node nào phía sau của node cần xóa");    
+                else if (index == 1)
+                {
+                    Timer timer1 = new Timer();
+                    timer1.Interval = trbAniSp.Value;
+                    timer1.Enabled = true;
+                    timer1.Tick += new EventHandler(timerDelLast1_Tick);
+                }           
                 else
                 {
                     Timer timer1 = new Timer();
@@ -516,7 +523,7 @@ namespace Mh_chinh
             timer2.Tick += new EventHandler(timerDelAfter2_Tick);
         }
 
-        public void timerDelAfter2_Tick(object sender, EventArgs e)
+        private void timerDelAfter2_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
             myListNode[index - 1].Link.End = myListNode[index - 1].Link.Start;
@@ -529,7 +536,7 @@ namespace Mh_chinh
             timer3.Tick += new EventHandler(timerDelAfter3_Tick);
         }
 
-        public void timerDelAfter3_Tick (object sender, EventArgs e)
+        private void timerDelAfter3_Tick (object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
             myListNode.RemoveAt(index - 1);
@@ -543,7 +550,7 @@ namespace Mh_chinh
             timer4.Tick += new EventHandler(timerDelAfter4_Tick); 
         }
 
-        public void timerDelAfter4_Tick(object sender, EventArgs e)
+        private void timerDelAfter4_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
             int i;
@@ -574,7 +581,7 @@ namespace Mh_chinh
 
 
         //Thêm node cuối
-        public void btAddLast_Click(object sender, EventArgs e)
+        private void btAddLast_Click(object sender, EventArgs e)
         {
             if (Check(tbInput.Text))
             {
@@ -602,7 +609,7 @@ namespace Mh_chinh
             else MessageBox.Show("Thông tin Node bị thiếu");
         }
 
-        public void TimerAddLast_Tick(object sender, EventArgs e)
+        private void TimerAddLast_Tick(object sender, EventArgs e)
         {
             Timer timer = (Timer)sender;
 
@@ -645,7 +652,7 @@ namespace Mh_chinh
             }
         }
 
-        public void timerAddLast_Tick1(object sender, EventArgs e)
+        private void timerAddLast_Tick1(object sender, EventArgs e)
         {
             //Tail
             Tail.Link.Start = new Point(Tail.Pos.X + 40, Tail.Pos.Y);
@@ -661,73 +668,66 @@ namespace Mh_chinh
         {
             if (myListNode.Count > 0)
             {
-                myListNode.RemoveAt(0);
-
-                Timer timer = new Timer();
-                timer.Interval = trbAniSp .Value;
-                timer.Enabled = true;
-                timer.Tick += new EventHandler(timerDelLast_Tick);
-                Paint += new PaintEventHandler(Draw_LinkList);
+                Timer timer1 = new Timer();
+                timer1.Interval = trbAniSp.Value;
+                timer1.Enabled = true;
+                timer1.Tick += new EventHandler(timerDelLast1_Tick);
+                
             }
             else MessageBox.Show("Danh sách trống");
         }
 
-        public void timerDelLast_Tick(object sender, EventArgs e)
+        private void timerDelLast1_Tick(object sender, EventArgs e)
         {
-            Timer timer = (Timer)sender;
-            if (myListNode.Count > 0)
+            Timer t = (Timer)sender;
+            if (myListNode.Count > 1)
             {
-                // Xóa link
+                Tail.Link.End = new Point(myListNode[1].Pos.X + myListNode[1].Rec.Width / 2,
+                    myListNode[1].Pos.Y + myListNode[1].Rec.Height);
+                t.Stop();
 
-                myListNode[0].Link.End = myListNode[0].Link.Start;
+                Timer timer2 = new Timer();
+                timer2.Interval = trbAniSp.Value;
+                timer2.Enabled = true;
+                timer2.Tick += new EventHandler(timerDelLast2_Tick);
 
-                //Thiết lập vị trí mũi tên của Tail 
-                Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
-                Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
-                    myListNode[0].Pos.Y + myListNode[0].Rec.Height);
-                Invalidate();
-                timer.Stop();
-
-                //Dịch chuyển các node sau khi đã xóa node đầu
-                Timer timer1 = new Timer();
-                timer1.Interval = trbAniSp .Value;
-                timer1.Enabled = true;
-                timer1.Tick += new EventHandler(timerDelLast_Tick1);
             }
             else
             {
-                Head.Link.End = Head.Link.Start;
                 Tail.Link.End = Tail.Link.Start;
-                Invalidate();
+                Head.Link.End = Head.Link.Start;
+                t.Stop();
+
+                Timer timer3 = new Timer();
+                timer3.Interval = trbAniSp.Value;
+                timer3.Enabled = true;
+                timer3.Tick += new EventHandler(timerDelLast3_Tick);
             }
+
+            Invalidate();
+            
         }
 
-        public void timerDelLast_Tick1(object sender, EventArgs e)
+        private void timerDelLast2_Tick(object sender, EventArgs e)
         {
-            Timer timer = (Timer)sender;
-            int temp = myListNode[myListNode.Count - 1].Pos.X;
-            //Dịch chuyển node về phía trước
-            if (temp > 120)
-            {
+            Timer t = (Timer)sender;
+            myListNode[1].Link.End = myListNode[1].Link.Start;
+            Invalidate();
+            t.Stop();
 
-                //Thiết lập vị trí mũi tên của head 
-                Head.Link.Start = new Point(Head.Pos.X + Head.Rec.Width / 2, Head.Pos.Y + Head.Rec.Width / 2);
-                Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[myListNode.Count - 1].Rec.Width / 2,
-                    myListNode[myListNode.Count - 1].Pos.Y);
-
-                //thiết lập vị trí mũi tên của tail
-                Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
-                Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
-                    myListNode[0].Pos.Y + myListNode[0].Rec.Height);
-                Invalidate();
-            }
-            else
-                timer.Stop();
+            Timer timer3 = new Timer();
+            timer3.Interval = trbAniSp.Value;
+            timer3.Enabled = true;
+            timer3.Tick += new EventHandler(timerDelLast3_Tick);
         }
 
-
-
-
+        private void timerDelLast3_Tick(object sender, EventArgs e)
+        {
+            Timer t = (Timer)sender;
+            myListNode.RemoveAt(0);
+            Invalidate();
+            t.Stop();
+        }
 
         // Di chuyển node bằng kéo thả chuột
         protected override void OnMouseDown(MouseEventArgs e)
@@ -861,7 +861,6 @@ namespace Mh_chinh
             }
             Invalidate();
         }
-
 
 
 
