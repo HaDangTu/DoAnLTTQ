@@ -177,6 +177,7 @@
             this.btDelBefore.TabIndex = 16;
             this.btDelBefore.Text = "Delete Before";
             this.btDelBefore.UseVisualStyleBackColor = true;
+            this.btDelBefore.Click += new System.EventHandler(this.btDelBefore_Click);
             // 
             // btCreatNew
             // 
