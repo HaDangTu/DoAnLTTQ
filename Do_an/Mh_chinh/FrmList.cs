@@ -96,7 +96,8 @@ namespace Mh_chinh
             Timer t = (Timer)sender;
             if (myListNode.Count > 1)
             {
-                myListNode[myListNode.Count - 1].Link.Start = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[myListNode.Count - 1].Rec.Width,
+                myListNode[myListNode.Count - 1].Link.Start = new Point(myListNode[myListNode.Count - 1].Pos.X +
+                    myListNode[myListNode.Count - 1].Rec.Width,
                   myListNode[myListNode.Count - 1].Pos.Y + myListNode[myListNode.Count - 1].Rec.Height / 2);
 
                 myListNode[myListNode.Count - 1].Link.End = new Point(myListNode[myListNode.Count - 2].Pos.X,
@@ -104,8 +105,12 @@ namespace Mh_chinh
             }
             else
             {
-                Head.Link.Start = new Point(Head.Pos.X + Head.Rec.Width / 2, Head.Pos.Y + Head.Rec.Height);              
-                Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);               
+                Head.Link.Start = new Point(Head.Pos.X + Head.Rec.Width / 2, Head.Pos.Y + Head.Rec.Height);
+                Head.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2, myListNode [0].Pos.Y);
+                                  
+                Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
+                Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
+                    myListNode[0].Pos.Y + myListNode[0].Rec.Height);             
             }
             Invalidate();
             t.Stop();
@@ -895,6 +900,11 @@ namespace Mh_chinh
                 myListNode[0].Pos.Y + myListNode[0].Rec.Height);
 
             Paint += new PaintEventHandler(Draw_LinkList);
+        }
+
+        private void btStepForward_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

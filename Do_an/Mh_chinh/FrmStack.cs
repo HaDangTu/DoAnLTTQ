@@ -20,12 +20,14 @@ namespace Mh_chinh
         public FrmStack()
         {
             InitializeComponent();
-            DoubleBuffered = true;
+            //DoubleBuffered = true;
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
+                ControlStyles.DoubleBuffer, true);
             myStack = new List<Node>();
             speed = 10;
             flag = false;
             max_Element = 10;
-            container = new Container(new Point(120, 120), 80, max_Element * 40);
+            container = new Container(new Point(120, 40), 80, max_Element * 40);
         }
 
         public void Init(object sender, PaintEventArgs pea)
@@ -35,7 +37,7 @@ namespace Mh_chinh
 
         private void FrmStack_Load(object sender, EventArgs e)
         {
-            Paint += new PaintEventHandler(Init);
+            panelDraw.Paint += new PaintEventHandler(Init);
             tbMElement.Text = max_Element.ToString();
         }
 
@@ -67,117 +69,107 @@ namespace Mh_chinh
                 if (max_Element != Int16.Parse(tbMElement.Text))
                 {
                     max_Element = Int16.Parse(tbMElement.Text);
-                    container = new Container(new Point(120, 120), 80, max_Element * 40);
-                    Paint += new PaintEventHandler(Init);
+                    container = new Container(new Point(120, 40), 80, max_Element * 40);
+                    panelDraw.Paint += new PaintEventHandler(Init);
                 }
 
-                Node node = new Node(tbInput.Text, new Point(400, 120));
+                Node node = new Node(tbInput.Text, new Point(400, 40));
                 myStack.Insert(0,node);
                 max_Element--;
                 tbMElement.Text = max_Element.ToString();
-
-                Timer timer1 = new Timer();
-                timer1.Interval = trbAniSpeed.Value;
-                timer1.Enabled = true;
-                timer1.Tick += new EventHandler(TimerPush1_Tick);
-                Paint += new PaintEventHandler(Draw_Stack);
+                
+                timerPush1.Interval = trbAniSpeed.Value;
+                timerPush1.Enabled = true;
+                
+                panelDraw.Paint += new PaintEventHandler(Draw_Stack);
             }
             else MessageBox.Show("Thông tin thiếu hoặc node đã có trong stack");
         }
 
-        private void TimerPush1_Tick(object sender, EventArgs e)
+        private void timerPush1_Tick(object sender, EventArgs e)
         {
-            Timer t = (Timer)sender;
             if (myStack[0].Pos.X > container.Pos.X)
                 myStack[0] = new Node(myStack[0].Info,
                     new Point(myStack[0].Pos.X - speed, myStack[0].Pos.Y));
             else
             {
-                t.Stop();
-                Timer timer2 = new Timer();
-                timer2.Interval = trbAniSpeed.Value;
-                timer2.Enabled = true;
-                timer2.Tick += new EventHandler(timerPush2_Tick);
+                timerPush1.Stop();
+
+                timerPush2.Interval = trbAniSpeed.Value;
+                timerPush2.Enabled = true;
             }
 
-            Invalidate();
+            panelDraw.Invalidate();
         }
 
-        public void timerPush2_Tick(object sender, EventArgs e)
+        private void timerPush2_Tick(object sender, EventArgs e)
         {
-            Timer t = (Timer)sender;
-            
-            if (myStack[0].Pos.Y + 40 < 120 - myStack.Count * 40 + container .Rec.Height + 40)//+ 40  vì myQueue.Count * 40 khi Count = 0 thì sẽ bị thiếu 1 đoạn là 40
+            if (myStack[0].Pos.Y + 40 < 40 - myStack.Count * 40 + container.Rec.Height + 40)//+ 40  vì myQueue.Count * 40 khi Count = 0 thì sẽ bị thiếu 1 đoạn là 40
             {
                 myStack[0] = new Node(myStack[0].Info,
                     new Point(myStack[0].Pos.X, myStack[0].Pos.Y + speed));
             }
             else
-                t.Stop();
-            Invalidate();
-            
+                timerPush2.Stop();
+            panelDraw.Invalidate();
+
         }
-      
+
         //Pop
         private void btPop_Click(object sender, EventArgs e)
         {
             if (myStack.Count > 0)
-            {
-                Timer timer1 = new Timer();
-                timer1.Interval = trbAniSpeed.Value;
-                timer1.Enabled = true;
-                timer1.Tick += new EventHandler(timerPop1_Tick);
-                Paint += new PaintEventHandler(Draw_Stack);
+            {              
+                timerPop1.Interval = trbAniSpeed.Value;
+                timerPop1.Enabled = true;
+                
+                panelDraw.Paint += new PaintEventHandler(Draw_Stack);
             }
             else MessageBox.Show("Stack trống");
         }
 
-        public void timerPop1_Tick(object sender, EventArgs e)
+        private void timerPop1_Tick(object sender, EventArgs e)
         {
-            Timer timer = (Timer)sender;
             if (myStack[0].Pos.Y > container.Pos.Y)
                 myStack[0] = new Node(myStack[0].Info,
                     new Point(myStack[0].Pos.X, myStack[0].Pos.Y - speed));
             else
             {
-                timer.Stop();
-                Timer timer2 = new Timer();
-                timer2.Interval = trbAniSpeed.Value;
-                timer2.Enabled = true;
-                timer2.Tick += new EventHandler(timerPop2_Tick);
-            }
-            Invalidate();
+                timerPop1.Stop();
 
-            
+                timerPop2.Interval = trbAniSpeed.Value;
+                timerPop2.Enabled = true;
+
+            }
+            panelDraw.Invalidate();
         }
 
-        public void timerPop2_Tick(object sender, EventArgs e)
+        private void timerPop2_Tick(object sender, EventArgs e)
         {
-            Timer timer = (Timer)sender;
             if (myStack[0].Pos.X < 400)
                 myStack[0] = new Node(myStack[0].Info,
                     new Point(myStack[0].Pos.X + speed, myStack[0].Pos.Y));
             else
             {
-                timer.Stop();
-                Timer timer3 = new Timer();
-                timer3.Interval = trbAniSpeed.Value;
-                timer3.Enabled = true;
-                timer3.Tick += new EventHandler(timerPop3_Tick);
+                timerPop2.Stop();
+
+                timerPop3.Interval = trbAniSpeed.Value;
+                timerPop3.Enabled = true;
             }
-            Invalidate();
+            panelDraw.Invalidate();
         }
 
-        public void timerPop3_Tick (object sender, EventArgs e)
+        private void timerPop3_Tick(object sender, EventArgs e)
         {
-            Timer timer = (Timer)sender;
-            tbPopVal .Text = myStack[0].Info;
+
+            tbPopVal.Text = myStack[0].Info;
             max_Element++;
             tbMElement.Text = max_Element.ToString();
             myStack.RemoveAt(0);
-            Invalidate();
-            timer.Stop();
+            panelDraw.Invalidate();
+            timerPop3.Stop();
         }
+
         //Tạo mới STACK từ file
         private void btCreate_Click(object sender, EventArgs e)
         {
@@ -196,17 +188,17 @@ namespace Mh_chinh
                     myStack.Insert(0, node);
                     max_Element--;
                     tbMElement.Text = max_Element.ToString();
-                    Paint += new PaintEventHandler(Draw_Stack);
+                    panelDraw.Paint += new PaintEventHandler(Draw_Stack);
                 }
                 
             }
             
         }
 
-        //Push stack bằng cách kéo thả chuột
-        protected override void OnMouseDown(MouseEventArgs e)
+        //Pop stack bằng cách kéo thả chuột       
+
+        private void panelDraw_MouseDown(object sender, MouseEventArgs e)
         {
-            base.OnMouseDown(e);
             Rectangle rect = new Rectangle(e.X, e.Y, 5, 5);
             if (myStack.Count > 0)
             {
@@ -218,12 +210,11 @@ namespace Mh_chinh
                 }
             }
             else MessageBox.Show("Stack trống");
-            Invalidate();
+            panelDraw.Invalidate();
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
+        private void panelDraw_MouseMove(object sender, MouseEventArgs e)
         {
-            base.OnMouseMove(e);
             if (myStack.Count > 0)
             {
                 if (flag == true)
@@ -232,13 +223,12 @@ namespace Mh_chinh
                                 new Point(e.X, e.Y));
                 }
             }
-            
-            Invalidate();
+
+            panelDraw.Invalidate();
         }
 
-        protected override void OnMouseUp(MouseEventArgs e)
+        private void panelDraw_MouseUp(object sender, MouseEventArgs e)
         {
-            base.OnMouseUp(e);
             if (myStack.Count > 0)
             {
                 if (flag == true)
@@ -247,16 +237,18 @@ namespace Mh_chinh
                                 new Point(e.X, e.Y));
                     if (myStack[0].Rec.IntersectsWith(container.Rec) == false)
                     {
-                        Timer timer = new Timer();
-                        timer.Interval = trbAniSpeed.Value;
-                        timer.Enabled = true;
-                        timer.Tick += new EventHandler(timerPop3_Tick);
-                        Paint += new PaintEventHandler(Draw_Stack);
-                    }
+                        
+                        timerPop3.Interval = trbAniSpeed.Value;
+                        timerPop3.Enabled = true;
+                        panelDraw.Paint += new PaintEventHandler(Draw_Stack);
+                        
+                    }                    
                     flag = false;
-                }
+                }              
             }
-            Invalidate();
+            panelDraw.Invalidate();
         }
+
+        
     }
 }

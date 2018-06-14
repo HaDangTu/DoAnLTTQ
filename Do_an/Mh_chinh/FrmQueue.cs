@@ -12,26 +12,44 @@ namespace Mh_chinh
 {
     public partial class FrmQueue : Form
     {
-        List<Node> myQueue;       
-        int speed;
-        bool flag;
+        List<Node> myQueue;
+        List<Timer> myTimer;      
+        int speed;       
         int max_Element;
+        int index; // Xác định timer vừa dừng khi bấm nút pause
+        bool flag;
+        bool pause;
         Container container;
         public FrmQueue()
         {
             InitializeComponent();
-            DoubleBuffered = true;
+            //DoubleBuffered = true;
+            //SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            //SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            //UpdateStyles();
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | 
+                ControlStyles.DoubleBuffer, true);           
             myQueue = new List<Node>();
+            myTimer = new List<Timer>();
             speed = 10 ;
-            flag = false;
             max_Element = 10;
-            container = new Container(new Point(120, 120), 80, max_Element * 40);
+            flag = false;
+            pause = false;
+            
+            container = new Container(new Point(120, 40), 80, max_Element * 40);
+
+            myTimer.Add(timerEnqueue1);
+            myTimer.Add(timerEnqueue2);
+            myTimer.Add(timerDequeue1);
+            myTimer.Add(timerDequeue2);
+            myTimer.Add(timerDequeue3);
         }
 
         private void FrmQueue_Load(object sender, EventArgs e)
         {
-            Paint += new PaintEventHandler(Init);
+            panelDraw.Paint += new PaintEventHandler(Init);
             tbMElement.Text = max_Element.ToString();
+            
         }
         
         public void Init(object sender, PaintEventArgs pea)
@@ -69,106 +87,96 @@ namespace Mh_chinh
                 if (max_Element != Int16.Parse(tbMElement.Text))
                 {
                     max_Element = Int16.Parse(tbMElement.Text);
-                    container = new Container(new Point(120, 120), 80, max_Element * 40);
-                    Paint += new PaintEventHandler(Init);
+                    container = new Container(new Point(120, 40), 80, max_Element * 40);
+                    panelDraw.Paint += new PaintEventHandler(Init);
                 }
 
-                Node node = new Node(tbInput.Text, new Point(400, 120));
+                Node node = new Node(tbInput.Text, new Point(400, 40));
                 myQueue.Add(node);
                 max_Element--;
                 tbMElement.Text = max_Element.ToString();
 
-                Timer timer1 = new Timer();
-                timer1.Interval = trbAniSpeed.Value;
-                timer1.Enabled = true;
-                timer1.Tick += new EventHandler(timerEnqueue1_Tick);
-                Paint += new PaintEventHandler(Draw_Queue);
+                timerEnqueue1.Interval = trbAniSpeed.Value;
+                timerEnqueue1.Enabled = true;              
+                panelDraw.Paint += new PaintEventHandler(Draw_Queue);
+                
             }
             else MessageBox.Show("Thông tin thiếu hoặc node đã có trong queue");
 
         }
         private void timerEnqueue1_Tick(object sender, EventArgs e)
         {
+            if (myQueue[myQueue.Count - 1].Pos.X > container.Pos.X)
+                myQueue[myQueue.Count - 1] = new Node(myQueue[myQueue.Count - 1].Info,
+                    new Point(myQueue[myQueue.Count - 1].Pos.X - speed, myQueue[myQueue.Count - 1].Pos.Y));
+            else
+            {
+                timerEnqueue1.Enabled = false;
 
-                Timer timer = (Timer)sender;
-                if (myQueue[myQueue.Count - 1].Pos.X > container.Pos.X)
-                    myQueue[myQueue.Count - 1] = new Node(myQueue[myQueue.Count - 1].Info,
-                        new Point(myQueue[myQueue.Count - 1].Pos.X - speed, myQueue[myQueue.Count - 1].Pos.Y));
-                else
-                {
-                    timer.Stop();
-                    Timer timer2 = new Timer();
-                    timer2.Interval = trbAniSpeed.Value;
-                    timer2.Enabled = true;
-                    timer2.Tick += new EventHandler(timerEnqueue2_Tick);
-                }
+                timerEnqueue2.Interval = trbAniSpeed.Value;
+                timerEnqueue2.Enabled = true;               
+            }
 
-                Invalidate();
-    
+            panelDraw.Invalidate();
         }
+
         private void timerEnqueue2_Tick(object sender, EventArgs e)
         {
-            Timer timer = (Timer)sender;
-            if (myQueue[myQueue.Count - 1].Pos.Y + 40 < myQueue.Count * 40 + 120)//120 là container.Pos.Y
-            
+            if (myQueue[myQueue.Count - 1].Pos.Y + 40 < myQueue.Count * 40 + 40)//40 là container.Pos.Y
+
                 myQueue[myQueue.Count - 1] = new Node(myQueue[myQueue.Count - 1].Info,
                       new Point(myQueue[myQueue.Count - 1].Pos.X, myQueue[myQueue.Count - 1].Pos.Y + speed));
-                
-            else timer.Stop();
-            
-            Invalidate();
+
+            else timerEnqueue2.Enabled = false;
+            panelDraw.Invalidate();
         }
         //Dequeue
         private void btDequeue_Click(object sender, EventArgs e)
         {
             if (myQueue.Count > 0)
             {
-                Timer timer1 = new Timer();
-                timer1.Interval = trbAniSpeed.Value;
-                timer1.Enabled = true;
-                timer1.Tick += new EventHandler(timerDequeue1_Tick);
-                Paint += new PaintEventHandler(Draw_Queue);
+                
+                timerDequeue1 .Interval = trbAniSpeed.Value;
+                timerDequeue1.Enabled = true;               
+                panelDraw.Paint += new PaintEventHandler(Draw_Queue);
+                
+                
             }
             else MessageBox.Show("Queue trống");
         }
 
         private void timerDequeue1_Tick(object sender, EventArgs e)
         {
-            Timer timer = (Timer)sender;
             if (myQueue[0].Pos.X < 400)
                 myQueue[0] = new Node(myQueue[0].Info,
                     new Point(myQueue[0].Pos.X + speed, myQueue[0].Pos.Y));
             else
             {
-                timer.Stop();
-                Timer timer2 = new Timer();
-                timer2.Interval = trbAniSpeed.Value;
-                timer2.Enabled = true;
-                timer2.Tick += new EventHandler(timerDequeue2_Tick);
+                timerDequeue1.Stop();
+
+                timerDequeue2.Interval = trbAniSpeed.Value;
+                timerDequeue2.Enabled = true;
+
             }
-            Invalidate();
+            panelDraw.Invalidate();
         }
 
-        public void timerDequeue2_Tick(object sender, EventArgs e)
+        private void timerDequeue2_Tick(object sender, EventArgs e)
         {
-            Timer timer = (Timer)sender;
             tbDeqVal.Text = myQueue[0].Info;
             max_Element++;
             tbMElement.Text = max_Element.ToString();
             myQueue.RemoveAt(0);
             Invalidate();
-            timer.Stop();
+            timerDequeue2.Stop();
 
-            Timer timer3 = new Timer();
-            timer3.Interval = trbAniSpeed.Value;
-            timer3.Enabled = true;
-            timer3.Tick += new EventHandler(timerDequeue3_Tick);
+
+            timerDequeue3.Interval = trbAniSpeed.Value;
+            timerDequeue3.Enabled = true;
         }
 
-        public void timerDequeue3_Tick(object sender, EventArgs e)
+        private void timerDequeue3_Tick(object sender, EventArgs e)
         {
-
-            Timer timer = (Timer)sender;
             if (myQueue.Count > 0)
             {
                 if (myQueue[0].Pos.Y > container.Pos.Y)
@@ -178,63 +186,12 @@ namespace Mh_chinh
                         myQueue[i] = new Node(myQueue[i].Info,
                             new Point(myQueue[i].Pos.X, myQueue[i].Pos.Y - speed));
                 }
-                else timer.Stop();
-                Invalidate();
+                else timerDequeue3.Stop();
+                panelDraw.Invalidate();
             }
         }
 
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-            if (myQueue.Count > 0)
-            {
-                Rectangle rect = new Rectangle(e.X, e.Y, 5, 5);
-                if (myQueue[0].Rec.IntersectsWith(rect))
-                {
-                    flag = true;
-                    myQueue[0] = new Node(myQueue[0].Info,
-                                new Point(e.X, e.Y));
-                }
-            }
-            Invalidate();
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            base.OnMouseMove(e);
-            if (myQueue.Count > 0)
-            {
-                if (flag == true)
-                {
-                    myQueue[0] = new Node(myQueue[0].Info,
-                                new Point(e.X, e.Y));
-                }
-            }
-            Invalidate();
-        }
-
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
-            base.OnMouseUp(e);
-            if (myQueue.Count > 0)
-            {
-                if (flag == true)
-                {
-                    myQueue[0] = new Node(myQueue[0].Info,
-                                new Point(e.X, e.Y));
-                    if (myQueue[0].Rec.IntersectsWith(container.Rec) == false)
-                    {
-                        Timer timer = new Timer();
-                        timer.Interval = trbAniSpeed.Value;
-                        timer.Enabled = true;
-                        timer.Tick += new EventHandler(timerDequeue2_Tick);
-                        Paint += new PaintEventHandler(Draw_Queue);
-                    }
-                    flag = false;
-                }
-            }
-            Invalidate();
-        }
+        //Tạo mới queue bằng danh sách cho trước
 
         private void btCreate_Click(object sender, EventArgs e)
         {
@@ -251,11 +208,60 @@ namespace Mh_chinh
 
                     max_Element--;
                     tbMElement.Text = max_Element.ToString();
-                    Paint += new PaintEventHandler(Draw_Queue);
+                    panelDraw.Paint += new PaintEventHandler(Draw_Queue);
+                    
                 }
                 
             }
             
         }
+        //Kéo thả chuột
+        private void panelDraw_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (myQueue.Count > 0)
+            {
+                Rectangle rect = new Rectangle(e.X, e.Y, 5, 5);
+                if (myQueue[0].Rec.IntersectsWith(rect))
+                {
+                    flag = true;
+                    myQueue[0] = new Node(myQueue[0].Info,
+                                new Point(e.X, e.Y));
+                }
+            }
+            panelDraw.Invalidate();
+        }
+
+        private void panelDraw_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (myQueue.Count > 0)
+            {
+                if (flag == true)
+                {
+                    myQueue[0] = new Node(myQueue[0].Info,
+                                new Point(e.X, e.Y));
+                }
+            }
+            panelDraw.Invalidate();
+        }
+
+        private void panelDraw_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (myQueue.Count > 0)
+            {
+                if (flag == true)
+                {
+                    myQueue[0] = new Node(myQueue[0].Info,
+                                new Point(e.X, e.Y));
+                    if (myQueue[0].Rec.IntersectsWith(container.Rec) == false)
+                    {
+                        timerDequeue2.Interval = trbAniSpeed.Value;
+                        timerDequeue2.Enabled = true;
+                    }
+                    flag = false;
+                }
+            }
+            panelDraw.Invalidate();
+        }
+       
     }
 }
