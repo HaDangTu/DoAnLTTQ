@@ -49,20 +49,23 @@
             // 
             // listToolStripMenuItem
             // 
+            this.listToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listToolStripMenuItem.Name = "listToolStripMenuItem";
-            this.listToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.listToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.listToolStripMenuItem.Text = "List ";
             this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
             // 
             // stackToolStripMenuItem
             // 
+            this.stackToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.stackToolStripMenuItem.Name = "stackToolStripMenuItem";
-            this.stackToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.stackToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.stackToolStripMenuItem.Text = "Stack";
             this.stackToolStripMenuItem.Click += new System.EventHandler(this.stackToolStripMenuItem_Click);
             // 
             // queueToolStripMenuItem
             // 
+            this.queueToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.queueToolStripMenuItem.Name = "queueToolStripMenuItem";
             this.queueToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.queueToolStripMenuItem.Text = "Queue";

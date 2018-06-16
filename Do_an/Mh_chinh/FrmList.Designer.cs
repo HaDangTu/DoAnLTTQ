@@ -47,26 +47,26 @@
             this.bunifuGradientPanel1 = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.bunifuGradientPanel2 = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.bunifuGradientPanel3 = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.btStepBack = new System.Windows.Forms.Button();
-            this.btStepForward = new System.Windows.Forms.Button();
-            this.btPause = new System.Windows.Forms.Button();
             this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
+            this.panelScroll = new System.Windows.Forms.Panel();
+            this.panelDraw = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSp)).BeginInit();
             this.bunifuGradientPanel1.SuspendLayout();
             this.bunifuGradientPanel2.SuspendLayout();
             this.bunifuGradientPanel3.SuspendLayout();
+            this.panelScroll.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbInput
             // 
-            this.tbInput.Location = new System.Drawing.Point(40, 6);
+            this.tbInput.Location = new System.Drawing.Point(40, 4);
             this.tbInput.Name = "tbInput";
-            this.tbInput.Size = new System.Drawing.Size(180, 20);
+            this.tbInput.Size = new System.Drawing.Size(180, 22);
             this.tbInput.TabIndex = 0;
             // 
             // btAddAfter
             // 
-            this.btAddAfter.Location = new System.Drawing.Point(246, 8);
+            this.btAddAfter.Location = new System.Drawing.Point(246, 4);
             this.btAddAfter.Name = "btAddAfter";
             this.btAddAfter.Size = new System.Drawing.Size(105, 23);
             this.btAddAfter.TabIndex = 1;
@@ -76,7 +76,7 @@
             // 
             // btAddBefore
             // 
-            this.btAddBefore.Location = new System.Drawing.Point(375, 8);
+            this.btAddBefore.Location = new System.Drawing.Point(375, 4);
             this.btAddBefore.Name = "btAddBefore";
             this.btAddBefore.Size = new System.Drawing.Size(105, 23);
             this.btAddBefore.TabIndex = 2;
@@ -113,7 +113,7 @@
             this.trbAniSp.Name = "trbAniSp";
             this.trbAniSp.Size = new System.Drawing.Size(476, 45);
             this.trbAniSp.TabIndex = 6;
-            this.trbAniSp.Value = 600;
+            this.trbAniSp.Value = 100;
             // 
             // label1
             // 
@@ -137,26 +137,26 @@
             // 
             // tbIndex
             // 
-            this.tbIndex.Location = new System.Drawing.Point(45, 6);
+            this.tbIndex.Location = new System.Drawing.Point(45, 4);
             this.tbIndex.Name = "tbIndex";
-            this.tbIndex.Size = new System.Drawing.Size(180, 20);
+            this.tbIndex.Size = new System.Drawing.Size(180, 22);
             this.tbIndex.TabIndex = 11;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(0, 13);
+            this.label2.Location = new System.Drawing.Point(0, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
+            this.label2.Size = new System.Drawing.Size(36, 15);
             this.label2.TabIndex = 12;
             this.label2.Text = "Input";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 13);
+            this.label3.Location = new System.Drawing.Point(3, 8);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.Size = new System.Drawing.Size(36, 15);
             this.label3.TabIndex = 13;
             this.label3.Text = "Index";
             // 
@@ -172,7 +172,7 @@
             // 
             // btDelAfter
             // 
-            this.btDelAfter.Location = new System.Drawing.Point(246, 37);
+            this.btDelAfter.Location = new System.Drawing.Point(246, 33);
             this.btDelAfter.Name = "btDelAfter";
             this.btDelAfter.Size = new System.Drawing.Size(105, 23);
             this.btDelAfter.TabIndex = 15;
@@ -182,7 +182,7 @@
             // 
             // btDelBefore
             // 
-            this.btDelBefore.Location = new System.Drawing.Point(375, 37);
+            this.btDelBefore.Location = new System.Drawing.Point(375, 33);
             this.btDelBefore.Name = "btDelBefore";
             this.btDelBefore.Size = new System.Drawing.Size(105, 23);
             this.btDelBefore.TabIndex = 16;
@@ -212,6 +212,7 @@
             this.bunifuGradientPanel1.Controls.Add(this.btCreatNew);
             this.bunifuGradientPanel1.Controls.Add(this.btDelFst);
             this.bunifuGradientPanel1.Controls.Add(this.btAddLast);
+            this.bunifuGradientPanel1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bunifuGradientPanel1.GradientBottomLeft = System.Drawing.Color.White;
             this.bunifuGradientPanel1.GradientBottomRight = System.Drawing.Color.White;
             this.bunifuGradientPanel1.GradientTopLeft = System.Drawing.Color.White;
@@ -233,6 +234,7 @@
             this.bunifuGradientPanel2.Controls.Add(this.btDelBefore);
             this.bunifuGradientPanel2.Controls.Add(this.btDelAfter);
             this.bunifuGradientPanel2.Controls.Add(this.btAddBefore);
+            this.bunifuGradientPanel2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bunifuGradientPanel2.GradientBottomLeft = System.Drawing.Color.White;
             this.bunifuGradientPanel2.GradientBottomRight = System.Drawing.Color.White;
             this.bunifuGradientPanel2.GradientTopLeft = System.Drawing.Color.White;
@@ -247,9 +249,6 @@
             // 
             this.bunifuGradientPanel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel3.BackgroundImage")));
             this.bunifuGradientPanel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuGradientPanel3.Controls.Add(this.btStepBack);
-            this.bunifuGradientPanel3.Controls.Add(this.btStepForward);
-            this.bunifuGradientPanel3.Controls.Add(this.btPause);
             this.bunifuGradientPanel3.Controls.Add(this.trbAniSp);
             this.bunifuGradientPanel3.Controls.Add(this.label1);
             this.bunifuGradientPanel3.GradientBottomLeft = System.Drawing.Color.White;
@@ -262,46 +261,36 @@
             this.bunifuGradientPanel3.Size = new System.Drawing.Size(893, 93);
             this.bunifuGradientPanel3.TabIndex = 20;
             // 
-            // btStepBack
-            // 
-            this.btStepBack.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btStepBack.Location = new System.Drawing.Point(221, 41);
-            this.btStepBack.Name = "btStepBack";
-            this.btStepBack.Size = new System.Drawing.Size(121, 23);
-            this.btStepBack.TabIndex = 23;
-            this.btStepBack.Text = "Step Back";
-            this.btStepBack.UseVisualStyleBackColor = true;
-            // 
-            // btStepForward
-            // 
-            this.btStepForward.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btStepForward.Location = new System.Drawing.Point(93, 41);
-            this.btStepForward.Name = "btStepForward";
-            this.btStepForward.Size = new System.Drawing.Size(116, 23);
-            this.btStepForward.TabIndex = 22;
-            this.btStepForward.Text = "Step Forward";
-            this.btStepForward.UseVisualStyleBackColor = true;
-            this.btStepForward.Click += new System.EventHandler(this.btStepForward_Click);
-            // 
-            // btPause
-            // 
-            this.btPause.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btPause.Location = new System.Drawing.Point(3, 41);
-            this.btPause.Name = "btPause";
-            this.btPause.Size = new System.Drawing.Size(75, 23);
-            this.btPause.TabIndex = 21;
-            this.btPause.Text = "Pause";
-            this.btPause.UseVisualStyleBackColor = true;
-            // 
             // bunifuCustomLabel1
             // 
             this.bunifuCustomLabel1.AutoSize = true;
             this.bunifuCustomLabel1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuCustomLabel1.Location = new System.Drawing.Point(335, 536);
+            this.bunifuCustomLabel1.Location = new System.Drawing.Point(509, 536);
             this.bunifuCustomLabel1.Name = "bunifuCustomLabel1";
             this.bunifuCustomLabel1.Size = new System.Drawing.Size(68, 17);
             this.bunifuCustomLabel1.TabIndex = 8;
             this.bunifuCustomLabel1.Text = "Animation";
+            // 
+            // panelScroll
+            // 
+            this.panelScroll.AutoScroll = true;
+            this.panelScroll.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelScroll.Controls.Add(this.panelDraw);
+            this.panelScroll.Location = new System.Drawing.Point(12, 83);
+            this.panelScroll.Name = "panelScroll";
+            this.panelScroll.Size = new System.Drawing.Size(1326, 450);
+            this.panelScroll.TabIndex = 21;
+            // 
+            // panelDraw
+            // 
+            this.panelDraw.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelDraw.Location = new System.Drawing.Point(3, 3);
+            this.panelDraw.Name = "panelDraw";
+            this.panelDraw.Size = new System.Drawing.Size(1316, 440);
+            this.panelDraw.TabIndex = 22;
+            this.panelDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
+            this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
+            this.panelDraw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnMouseUp);
             // 
             // FrmList
             // 
@@ -309,6 +298,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1350, 661);
+            this.Controls.Add(this.panelScroll);
             this.Controls.Add(this.bunifuGradientPanel3);
             this.Controls.Add(this.bunifuGradientPanel2);
             this.Controls.Add(this.bunifuGradientPanel1);
@@ -324,6 +314,7 @@
             this.bunifuGradientPanel2.PerformLayout();
             this.bunifuGradientPanel3.ResumeLayout(false);
             this.bunifuGradientPanel3.PerformLayout();
+            this.panelScroll.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,9 +340,8 @@
         private Bunifu.Framework.UI.BunifuGradientPanel bunifuGradientPanel1;
         private Bunifu.Framework.UI.BunifuGradientPanel bunifuGradientPanel2;
         private Bunifu.Framework.UI.BunifuGradientPanel bunifuGradientPanel3;
-        private System.Windows.Forms.Button btStepBack;
-        private System.Windows.Forms.Button btStepForward;
-        private System.Windows.Forms.Button btPause;
         private Bunifu.Framework.UI.BunifuCustomLabel bunifuCustomLabel1;
+        private System.Windows.Forms.Panel panelScroll;
+        internal System.Windows.Forms.Panel panelDraw;
     }
 }

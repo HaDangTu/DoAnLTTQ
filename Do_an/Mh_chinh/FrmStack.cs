@@ -71,6 +71,9 @@ namespace Mh_chinh
                     max_Element = Int16.Parse(tbMElement.Text);
                     container = new Container(new Point(120, 40), 80, max_Element * 40);
                     panelDraw.Paint += new PaintEventHandler(Init);
+
+                    while (container.Pos.Y + container.Rec.Height >= panelDraw.Height) //chỉnh kích thước panel vẽ
+                        panelDraw.Height = panelDraw.Height + 40;
                 }
 
                 Node node = new Node(tbInput.Text, new Point(400, 40));

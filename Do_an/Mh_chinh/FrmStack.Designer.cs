@@ -50,9 +50,11 @@
             this.timerPop1 = new System.Windows.Forms.Timer(this.components);
             this.timerPop2 = new System.Windows.Forms.Timer(this.components);
             this.timerPop3 = new System.Windows.Forms.Timer(this.components);
+            this.panelScroll = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSpeed)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panelScroll.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbInput
@@ -100,7 +102,7 @@
             this.trbAniSpeed.Name = "trbAniSpeed";
             this.trbAniSpeed.Size = new System.Drawing.Size(319, 45);
             this.trbAniSpeed.TabIndex = 4;
-            this.trbAniSpeed.Value = 60;
+            this.trbAniSpeed.Value = 100;
             // 
             // label2
             // 
@@ -204,10 +206,10 @@
             // 
             // panelDraw
             // 
-            this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelDraw.Location = new System.Drawing.Point(12, 98);
+            this.panelDraw.AutoScroll = true;
+            this.panelDraw.Location = new System.Drawing.Point(3, 3);
             this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(1326, 478);
+            this.panelDraw.Size = new System.Drawing.Size(1300, 468);
             this.panelDraw.TabIndex = 13;
             this.panelDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseDown);
             this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseMove);
@@ -233,12 +235,22 @@
             // 
             this.timerPop3.Tick += new System.EventHandler(this.timerPop3_Tick);
             // 
+            // panelScroll
+            // 
+            this.panelScroll.AutoScroll = true;
+            this.panelScroll.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelScroll.Controls.Add(this.panelDraw);
+            this.panelScroll.Location = new System.Drawing.Point(12, 98);
+            this.panelScroll.Name = "panelScroll";
+            this.panelScroll.Size = new System.Drawing.Size(1326, 478);
+            this.panelScroll.TabIndex = 0;
+            // 
             // FrmStack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 661);
-            this.Controls.Add(this.panelDraw);
+            this.Controls.Add(this.panelScroll);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel2);
@@ -255,6 +267,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panelScroll.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,5 +296,6 @@
         private System.Windows.Forms.Timer timerPop1;
         private System.Windows.Forms.Timer timerPop2;
         private System.Windows.Forms.Timer timerPop3;
+        private System.Windows.Forms.Panel panelScroll;
     }
 }

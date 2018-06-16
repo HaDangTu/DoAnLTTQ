@@ -51,10 +51,12 @@
             this.timerDequeue2 = new System.Windows.Forms.Timer(this.components);
             this.timerDequeue3 = new System.Windows.Forms.Timer(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panelScroll = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSpeed)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panelScroll.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -102,14 +104,14 @@
             this.trbAniSpeed.Name = "trbAniSpeed";
             this.trbAniSpeed.Size = new System.Drawing.Size(485, 45);
             this.trbAniSpeed.TabIndex = 4;
-            this.trbAniSpeed.Value = 300;
+            this.trbAniSpeed.Value = 100;
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(487, 56);
+            this.label2.Location = new System.Drawing.Point(628, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 15);
             this.label2.TabIndex = 5;
@@ -207,10 +209,10 @@
             // 
             // panelDraw
             // 
-            this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelDraw.Location = new System.Drawing.Point(12, 96);
+            this.panelDraw.AllowDrop = true;
+            this.panelDraw.Location = new System.Drawing.Point(3, 3);
             this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(1326, 489);
+            this.panelDraw.Size = new System.Drawing.Size(1301, 463);
             this.panelDraw.TabIndex = 15;
             this.panelDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseDown);
             this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseMove);
@@ -246,13 +248,23 @@
             this.panel3.Size = new System.Drawing.Size(1092, 79);
             this.panel3.TabIndex = 16;
             // 
+            // panelScroll
+            // 
+            this.panelScroll.AutoScroll = true;
+            this.panelScroll.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelScroll.Controls.Add(this.panelDraw);
+            this.panelScroll.Location = new System.Drawing.Point(12, 99);
+            this.panelScroll.Name = "panelScroll";
+            this.panelScroll.Size = new System.Drawing.Size(1326, 483);
+            this.panelScroll.TabIndex = 0;
+            // 
             // FrmQueue
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 688);
+            this.Controls.Add(this.panelScroll);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panelDraw);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel2);
@@ -270,6 +282,7 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panelScroll.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,5 +312,6 @@
         private System.Windows.Forms.Timer timerDequeue3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panelDraw;
+        private System.Windows.Forms.Panel panelScroll;
     }
 }

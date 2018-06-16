@@ -27,14 +27,16 @@ namespace Mh_chinh
             myListNode = new List<Node>();
             speed = 10;
             //Khởi tạo head, tail
-            Head = new Node("Head", 120, 120);
-            Tail = new Node("Tail", 120, 400);
+            Head = new Node("Head", 120, 40);
+            Tail = new Node("Tail", 120, 320);
+            panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
         }
+       
 
         public void Mh_Stack_Load(object sender, EventArgs e)
         {
 
-            Paint += new PaintEventHandler(Init);
+            panelDraw.Paint += new PaintEventHandler(Init);
         }
 
         public void Init(object sender, PaintEventArgs pea)
@@ -73,16 +75,27 @@ namespace Mh_chinh
         }
 
         //Thêm node đầu  danh sách liên kết
+
+        // Scroll panel
+        public void AutoResizePanel ()
+        {
+            if (myListNode.Count > 1)
+            {
+                while (myListNode[0].Pos.X + myListNode[0].Rec.Width >= panelDraw.Width - 80) //chỉnh kích thước panel vẽ
+                    panelDraw.Width = panelDraw.Width + 120;
+            }
+        }
         private void btAddFirst_Click(object sender, EventArgs e)
         {
+
             if (Check(tbInput.Text) == true && isValidNode (tbInput.Text) == true)
             {
-
-                Node node = new Node(tbInput.Text, new Point(240, 120));
+                AutoResizePanel();
+                Node node = new Node(tbInput.Text, new Point(240, 40));
                 myListNode.Add(node);
 
 
-                Paint += new PaintEventHandler(Draw_LinkList);
+                //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                 Timer timer1 = new Timer();
                 timer1.Enabled = true;
                 timer1.Interval = trbAniSp.Value;
@@ -112,7 +125,7 @@ namespace Mh_chinh
                 Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                     myListNode[0].Pos.Y + myListNode[0].Rec.Height);             
             }
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
 
             Timer timer2 = new Timer();
@@ -137,7 +150,7 @@ namespace Mh_chinh
             timer2.Interval = trbAniSp.Value;
             timer2.Enabled = true;
             timer2.Tick += new EventHandler(timerAddFirst3_Tick);
-            Invalidate();
+            panelDraw.Invalidate();
         }
 
         public void timerAddFirst3_Tick(object sender, EventArgs e)
@@ -172,7 +185,7 @@ namespace Mh_chinh
                     timer3.Enabled = true;
                 }
               
-            Invalidate();
+            panelDraw.Invalidate();
         }
 
         public void timerAddFirst4_Tick(object sender, EventArgs e)
@@ -181,7 +194,7 @@ namespace Mh_chinh
             if (myListNode.Count > 1)
             {
                 myListNode[myListNode.Count - 1] = new Node(myListNode[myListNode.Count - 1].Info,
-                  new Point(120, 260));
+                  new Point(120, 180));
 
                 myListNode[myListNode.Count - 1].Link.Start = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[myListNode.Count - 1].Rec.Width,
                       myListNode[myListNode.Count - 1].Pos.Y + myListNode[myListNode.Count - 1].Rec.Height / 2);
@@ -194,7 +207,7 @@ namespace Mh_chinh
             else
             {
                 myListNode[myListNode.Count - 1] = new Node(myListNode[myListNode.Count - 1].Info,
-                  new Point(120, 260));
+                  new Point(120, 180));
                 
                 Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[myListNode.Count - 1].Rec.Width / 2,
                     myListNode[myListNode.Count - 1].Pos.Y);
@@ -202,7 +215,7 @@ namespace Mh_chinh
                 Tail.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[myListNode.Count - 1].Rec.Width / 2,
                     myListNode[myListNode.Count - 1].Pos.Y + myListNode[myListNode.Count - 1].Rec.Height);
             }
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
         }
 
@@ -211,7 +224,7 @@ namespace Mh_chinh
         {
             if (myListNode.Count > 0)
             {
-                Paint += new PaintEventHandler(Draw_LinkList);
+                //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                 Timer timer = new Timer();
                 timer.Interval = trbAniSp.Value;
                 timer.Enabled = true;
@@ -228,17 +241,16 @@ namespace Mh_chinh
             {
                 //đưa vị trí con trỏ head về node myListNode[myListNode.Count - 2]             
                 Head.Link.End = new Point(myListNode[myListNode.Count - 2].Pos.X + myListNode[myListNode.Count - 2].Rec.Width / 2,
-                    myListNode[myListNode.Count - 2].Pos.Y);
-                Invalidate();
-                timer.Stop();
+                    myListNode[myListNode.Count - 2].Pos.Y);                
             }
             else
             {
                 Head.Link.End = Head.Link.Start;
                 Tail.Link.End = Tail.Link.Start;                
             }
-            Invalidate();
+            panelDraw.Invalidate();
             timer.Stop();
+
             Timer timer1 = new Timer();
             timer1.Interval = trbAniSp.Value;
             timer1.Enabled = true;
@@ -251,7 +263,7 @@ namespace Mh_chinh
             //xóa liên kết giữa myListNode[myListNode.Count - 1] và myListNode[myListNode.Count - 2]
 
             myListNode[myListNode.Count - 1].Link.End = myListNode[myListNode.Count - 1].Link.Start;
-            Invalidate();
+            panelDraw.Invalidate();
             timer.Stop();
 
             Timer timer3 = new Timer();
@@ -266,8 +278,9 @@ namespace Mh_chinh
             Timer timer = (Timer)sender;
             //Xóa myListNode[myListNode.Count - 1] trong mảng myListNode
             myListNode.RemoveAt(myListNode.Count - 1);
-            Invalidate();
+            panelDraw.Invalidate();
             timer.Stop();
+
             Timer timer4 = new Timer();
             timer4.Interval = trbAniSp.Value;
             timer4.Enabled = true;
@@ -302,7 +315,7 @@ namespace Mh_chinh
                 else timer.Stop();
             }
             
-            Invalidate();
+            panelDraw.Invalidate();
             
         }
 
@@ -315,7 +328,8 @@ namespace Mh_chinh
             if (Check(tbInput.Text) == true && (Check(tbIndex.Text) == true)
                 && isValidNode (tbInput.Text))
             {
-                Node node = new Node(tbInput.Text, new Point(240, 120));
+                AutoResizePanel();
+                Node node = new Node(tbInput.Text, new Point(240, 40));
                 index = Find_Node(tbIndex.Text);
                 if (index == myListNode.Count - 1) //Trường hợp cần chèn node lên đầu danh sách
                 {
@@ -329,7 +343,7 @@ namespace Mh_chinh
                 {
                     index = index + 1;
                     myListNode.Insert(index, node);
-                    Paint += new PaintEventHandler(Draw_LinkList);
+                   // panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                     index++;
                     Timer timer1 = new Timer();
                     timer1.Enabled = true;
@@ -364,7 +378,7 @@ namespace Mh_chinh
                     timer1.Interval = trbAniSp.Value;
                     timer1.Enabled = true;
                     timer1.Tick += new EventHandler(timerDelAfter1_Tick);
-                    Paint += new PaintEventHandler(Draw_LinkList);
+                    //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                 }
             }
             else MessageBox.Show("Lỗi nhập giá trị hoặc List trống");
@@ -379,7 +393,8 @@ namespace Mh_chinh
             if (Check(tbInput.Text) == true && (Check(tbIndex.Text) == true) 
                 && isValidNode(tbInput.Text) == true)
             {
-                Node node = new Node(tbInput.Text, new Point(240, 120));
+                AutoResizePanel();
+                Node node = new Node(tbInput.Text, new Point(240, 40));
                 index = Find_Node(tbIndex.Text);
                 if (index == 0)
                 {
@@ -394,7 +409,7 @@ namespace Mh_chinh
                     myListNode.Insert(index, node);
 
                     index++;
-                    Paint += new PaintEventHandler(Draw_LinkList);
+                    //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                     Timer timer1 = new Timer();
                     timer1.Enabled = true;
                     timer1.Interval = trbAniSp.Value;
@@ -414,7 +429,7 @@ namespace Mh_chinh
 
             myListNode[index - 1].Link.End = new Point(myListNode[index - 2].Pos.X,
                 myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
 
             Timer timer2 = new Timer();
@@ -429,7 +444,7 @@ namespace Mh_chinh
             myListNode[index].Link.End = new Point(myListNode[index - 1].Pos.X,
                myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
 
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
 
             Timer timer3 = new Timer();
@@ -458,7 +473,7 @@ namespace Mh_chinh
                     myListNode[0].Pos.Y + myListNode[0].Rec.Height);
 
 
-                Invalidate();
+                panelDraw.Invalidate();
             }
             else
             {
@@ -483,7 +498,7 @@ namespace Mh_chinh
                 myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
             myListNode[index - 1].Link.End = new Point(myListNode[index - 2].Pos.X,
                 myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height  / 2);
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
 
         }
@@ -509,7 +524,7 @@ namespace Mh_chinh
                     timer1.Interval = trbAniSp.Value;
                     timer1.Enabled = true;
                     timer1.Tick += new EventHandler(timerDelAfter1_Tick);
-                    Paint += new PaintEventHandler(Draw_LinkList);
+                    //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                 }
             }else MessageBox.Show("Thông tin node cần xóa phía sau bị trống");
         }
@@ -519,7 +534,7 @@ namespace Mh_chinh
             Timer t = (Timer)sender;
             myListNode[index].Link.End = new Point(myListNode[index - 2].Pos.X,
                 myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
 
             Timer timer2 = new Timer();
@@ -532,7 +547,7 @@ namespace Mh_chinh
         {
             Timer t = (Timer)sender;
             myListNode[index - 1].Link.End = myListNode[index - 1].Link.Start;
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
 
             Timer timer3 = new Timer();
@@ -546,7 +561,7 @@ namespace Mh_chinh
             Timer t = (Timer)sender;
             myListNode.RemoveAt(index - 1);
             index--;
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
 
             Timer timer4 = new Timer();
@@ -577,7 +592,7 @@ namespace Mh_chinh
 
                 Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                     myListNode[0].Pos.Y + myListNode[0].Rec.Height);
-                Invalidate();
+                panelDraw.Invalidate();
             }
             else t.Stop();
         }
@@ -590,6 +605,7 @@ namespace Mh_chinh
         {
             if (Check(tbInput.Text))
             {
+                AutoResizePanel();
                 if (myListNode.Count == 0)
                 {
                     Node node = new Node(tbInput.Text, new Point(0, 260));
@@ -602,10 +618,11 @@ namespace Mh_chinh
                     Node node = new Node(tbInput.Text,
                         new Point(myListNode[0].Pos.X - myListNode.Count * 120, myListNode[0].Pos.Y));
                     //myListNode.Add(node);
+                    
                     myListNode.Insert(0, node);
                 }
 
-                Paint += new PaintEventHandler(Draw_LinkList);
+                panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                 Timer timer1 = new Timer();
                 timer1.Enabled = true;
                 timer1.Interval = trbAniSp .Value;
@@ -645,7 +662,7 @@ namespace Mh_chinh
 
                 //Lưu ý: do hàm Add trong List chỉ thêm vào vị trí cuối của List nên đầu List sẽ là
                 //phần tử myListNode[myListNode.Count - 1] và phần tử cuối của list là myListNode[0];
-                Invalidate();
+                panelDraw.Invalidate();
             }
             else
             {
@@ -665,7 +682,7 @@ namespace Mh_chinh
 
             Timer timer = (Timer)sender;
             timer.Stop();
-            Invalidate();
+            panelDraw.Invalidate();
         }
 
         //Xóa node cuối
@@ -709,7 +726,7 @@ namespace Mh_chinh
                 timer3.Tick += new EventHandler(timerDelLast3_Tick);
             }
 
-            Invalidate();
+            panelDraw.Invalidate();
             
         }
 
@@ -717,7 +734,7 @@ namespace Mh_chinh
         {
             Timer t = (Timer)sender;
             myListNode[1].Link.End = myListNode[1].Link.Start;
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
 
             Timer timer3 = new Timer();
@@ -730,14 +747,14 @@ namespace Mh_chinh
         {
             Timer t = (Timer)sender;
             myListNode.RemoveAt(0);
-            Invalidate();
+            panelDraw.Invalidate();
             t.Stop();
         }
 
         // Di chuyển node bằng kéo thả chuột
-        protected override void OnMouseDown(MouseEventArgs e)
+        public void OnMouseDown(object sender, MouseEventArgs e)
         {
-            base.OnMouseDown(e);
+           
             Rectangle rect = new Rectangle(e.X, e.Y, 5, 5);
             int i;
             for (i = 0; i < myListNode .Count; i++)
@@ -780,12 +797,12 @@ namespace Mh_chinh
                     }
                 }
             }
-            Invalidate();
+            panelDraw.Invalidate();
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
+        public  void OnMouseMove(object sender, MouseEventArgs e)
         {
-            base.OnMouseMove(e);
+           
             if (flag == true)
             {
                 if (collison  > 0 && collison < myListNode.Count - 1)
@@ -820,14 +837,14 @@ namespace Mh_chinh
                     Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[0].Rec.Width / 2,
                         myListNode[myListNode.Count - 1].Pos.Y);
                 }
-
+                panelDraw.Invalidate();
             }
-            Invalidate();
+            
         }
 
-        protected override void OnMouseUp(MouseEventArgs e)
+        public void OnMouseUp(object sender, MouseEventArgs e)
         {
-            base.OnMouseUp(e);
+            
             if (flag == true)
             {
                 if (collison > 0 && collison < myListNode.Count - 1)
@@ -863,8 +880,8 @@ namespace Mh_chinh
                         myListNode[myListNode.Count - 1].Pos.Y);
                 }
                 flag = false;
-            }
-            Invalidate();
+                panelDraw.Invalidate();
+            }         
         }
 
 
@@ -880,9 +897,9 @@ namespace Mh_chinh
                 while ((value = strreader.ReadLine()) != null)
                 {
                     myListNode.Insert(0, new Node(value,
-                        new Point(myListNode.Count * 120 + 120, 260),
-                        200 + myListNode.Count * 120, 280,
-                        200 + myListNode.Count * 120 + 40, 280));
+                        new Point(myListNode.Count * 120 + 120, 180),
+                        200 + myListNode.Count * 120, 200,
+                        200 + myListNode.Count * 120 + 40, 200));
                 }
             }
             myListNode[0] = new Node(myListNode[0].Info,
@@ -899,12 +916,9 @@ namespace Mh_chinh
             Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                 myListNode[0].Pos.Y + myListNode[0].Rec.Height);
 
-            Paint += new PaintEventHandler(Draw_LinkList);
+            //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
         }
 
-        private void btStepForward_Click(object sender, EventArgs e)
-        {
-            
-        }
+        
     }
 }
