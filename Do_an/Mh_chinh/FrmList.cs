@@ -627,7 +627,7 @@ namespace Mh_chinh
                     
                     myListNode.Insert(0, node);
                 }
-                tbInput.Text = string.Empty;
+
                 Timer timer1 = new Timer();
                 timer1.Enabled = true;
                 timer1.Interval = trbAniSp .Value;
@@ -687,7 +687,7 @@ namespace Mh_chinh
 
             Timer timer = (Timer)sender;
             timer.Stop();
-            
+            tbInput.Text = string.Empty;
             panelDraw.Invalidate();
         }
 
@@ -754,6 +754,7 @@ namespace Mh_chinh
             Timer t = (Timer)sender;
             myListNode.RemoveAt(0);
             panelDraw.Invalidate();
+     
             t.Stop();
         }
 
@@ -925,6 +926,21 @@ namespace Mh_chinh
             //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
         }
 
-        
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmList));
             this.tbInput = new System.Windows.Forms.TextBox();
             this.btAddAfter = new System.Windows.Forms.Button();
             this.btAddBefore = new System.Windows.Forms.Button();
@@ -44,29 +43,29 @@
             this.btDelAfter = new System.Windows.Forms.Button();
             this.btDelBefore = new System.Windows.Forms.Button();
             this.btCreatNew = new System.Windows.Forms.Button();
-            this.bunifuGradientPanel1 = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.bunifuGradientPanel2 = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.bunifuGradientPanel3 = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.panelScroll = new System.Windows.Forms.Panel();
             this.panelDraw = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSp)).BeginInit();
-            this.bunifuGradientPanel1.SuspendLayout();
-            this.bunifuGradientPanel2.SuspendLayout();
-            this.bunifuGradientPanel3.SuspendLayout();
             this.panelScroll.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbInput
             // 
-            this.tbInput.Location = new System.Drawing.Point(40, 4);
+            this.tbInput.Location = new System.Drawing.Point(42, 3);
             this.tbInput.Name = "tbInput";
             this.tbInput.Size = new System.Drawing.Size(180, 22);
             this.tbInput.TabIndex = 0;
+            this.tbInput.TextChanged += new System.EventHandler(this.tbInput_TextChanged);
             // 
             // btAddAfter
             // 
-            this.btAddAfter.Location = new System.Drawing.Point(246, 4);
+            this.btAddAfter.Location = new System.Drawing.Point(247, 4);
             this.btAddAfter.Name = "btAddAfter";
             this.btAddAfter.Size = new System.Drawing.Size(105, 23);
             this.btAddAfter.TabIndex = 1;
@@ -76,7 +75,7 @@
             // 
             // btAddBefore
             // 
-            this.btAddBefore.Location = new System.Drawing.Point(375, 4);
+            this.btAddBefore.Location = new System.Drawing.Point(376, 4);
             this.btAddBefore.Name = "btAddBefore";
             this.btAddBefore.Size = new System.Drawing.Size(105, 23);
             this.btAddBefore.TabIndex = 2;
@@ -86,7 +85,7 @@
             // 
             // btAddFirst
             // 
-            this.btAddFirst.Location = new System.Drawing.Point(242, 4);
+            this.btAddFirst.Location = new System.Drawing.Point(244, 3);
             this.btAddFirst.Name = "btAddFirst";
             this.btAddFirst.Size = new System.Drawing.Size(98, 23);
             this.btAddFirst.TabIndex = 3;
@@ -96,7 +95,7 @@
             // 
             // btAddLast
             // 
-            this.btAddLast.Location = new System.Drawing.Point(350, 4);
+            this.btAddLast.Location = new System.Drawing.Point(352, 3);
             this.btAddLast.Name = "btAddLast";
             this.btAddLast.Size = new System.Drawing.Size(98, 23);
             this.btAddLast.TabIndex = 4;
@@ -107,7 +106,7 @@
             // trbAniSp
             // 
             this.trbAniSp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.trbAniSp.Location = new System.Drawing.Point(414, 19);
+            this.trbAniSp.Location = new System.Drawing.Point(7, 33);
             this.trbAniSp.Maximum = 1000;
             this.trbAniSp.Minimum = 1;
             this.trbAniSp.Name = "trbAniSp";
@@ -119,7 +118,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(638, 67);
+            this.label1.Location = new System.Drawing.Point(195, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 7;
@@ -127,7 +126,7 @@
             // 
             // btDelFst
             // 
-            this.btDelFst.Location = new System.Drawing.Point(350, 33);
+            this.btDelFst.Location = new System.Drawing.Point(352, 32);
             this.btDelFst.Name = "btDelFst";
             this.btDelFst.Size = new System.Drawing.Size(98, 23);
             this.btDelFst.TabIndex = 10;
@@ -137,7 +136,7 @@
             // 
             // tbIndex
             // 
-            this.tbIndex.Location = new System.Drawing.Point(45, 4);
+            this.tbIndex.Location = new System.Drawing.Point(46, 4);
             this.tbIndex.Name = "tbIndex";
             this.tbIndex.Size = new System.Drawing.Size(180, 22);
             this.tbIndex.TabIndex = 11;
@@ -145,16 +144,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(0, 7);
+            this.label2.Location = new System.Drawing.Point(2, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 15);
             this.label2.TabIndex = 12;
             this.label2.Text = "Input";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 8);
+            this.label3.Location = new System.Drawing.Point(4, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(36, 15);
             this.label3.TabIndex = 13;
@@ -162,7 +162,7 @@
             // 
             // btDelLast
             // 
-            this.btDelLast.Location = new System.Drawing.Point(242, 33);
+            this.btDelLast.Location = new System.Drawing.Point(244, 32);
             this.btDelLast.Name = "btDelLast";
             this.btDelLast.Size = new System.Drawing.Size(98, 23);
             this.btDelLast.TabIndex = 14;
@@ -172,7 +172,7 @@
             // 
             // btDelAfter
             // 
-            this.btDelAfter.Location = new System.Drawing.Point(246, 33);
+            this.btDelAfter.Location = new System.Drawing.Point(247, 33);
             this.btDelAfter.Name = "btDelAfter";
             this.btDelAfter.Size = new System.Drawing.Size(105, 23);
             this.btDelAfter.TabIndex = 15;
@@ -182,7 +182,7 @@
             // 
             // btDelBefore
             // 
-            this.btDelBefore.Location = new System.Drawing.Point(375, 33);
+            this.btDelBefore.Location = new System.Drawing.Point(376, 33);
             this.btDelBefore.Name = "btDelBefore";
             this.btDelBefore.Size = new System.Drawing.Size(105, 23);
             this.btDelBefore.TabIndex = 16;
@@ -192,84 +192,13 @@
             // 
             // btCreatNew
             // 
-            this.btCreatNew.Location = new System.Drawing.Point(3, 37);
+            this.btCreatNew.Location = new System.Drawing.Point(5, 36);
             this.btCreatNew.Name = "btCreatNew";
             this.btCreatNew.Size = new System.Drawing.Size(75, 23);
             this.btCreatNew.TabIndex = 17;
             this.btCreatNew.Text = "Create New";
             this.btCreatNew.UseVisualStyleBackColor = true;
             this.btCreatNew.Click += new System.EventHandler(this.btCreatNew_Click);
-            // 
-            // bunifuGradientPanel1
-            // 
-            this.bunifuGradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel1.BackgroundImage")));
-            this.bunifuGradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuGradientPanel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.bunifuGradientPanel1.Controls.Add(this.label2);
-            this.bunifuGradientPanel1.Controls.Add(this.tbInput);
-            this.bunifuGradientPanel1.Controls.Add(this.btDelLast);
-            this.bunifuGradientPanel1.Controls.Add(this.btAddFirst);
-            this.bunifuGradientPanel1.Controls.Add(this.btCreatNew);
-            this.bunifuGradientPanel1.Controls.Add(this.btDelFst);
-            this.bunifuGradientPanel1.Controls.Add(this.btAddLast);
-            this.bunifuGradientPanel1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuGradientPanel1.GradientBottomLeft = System.Drawing.Color.White;
-            this.bunifuGradientPanel1.GradientBottomRight = System.Drawing.Color.White;
-            this.bunifuGradientPanel1.GradientTopLeft = System.Drawing.Color.White;
-            this.bunifuGradientPanel1.GradientTopRight = System.Drawing.Color.White;
-            this.bunifuGradientPanel1.Location = new System.Drawing.Point(12, 7);
-            this.bunifuGradientPanel1.Name = "bunifuGradientPanel1";
-            this.bunifuGradientPanel1.Quality = 10;
-            this.bunifuGradientPanel1.Size = new System.Drawing.Size(458, 70);
-            this.bunifuGradientPanel1.TabIndex = 18;
-            // 
-            // bunifuGradientPanel2
-            // 
-            this.bunifuGradientPanel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel2.BackgroundImage")));
-            this.bunifuGradientPanel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuGradientPanel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.bunifuGradientPanel2.Controls.Add(this.tbIndex);
-            this.bunifuGradientPanel2.Controls.Add(this.label3);
-            this.bunifuGradientPanel2.Controls.Add(this.btAddAfter);
-            this.bunifuGradientPanel2.Controls.Add(this.btDelBefore);
-            this.bunifuGradientPanel2.Controls.Add(this.btDelAfter);
-            this.bunifuGradientPanel2.Controls.Add(this.btAddBefore);
-            this.bunifuGradientPanel2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuGradientPanel2.GradientBottomLeft = System.Drawing.Color.White;
-            this.bunifuGradientPanel2.GradientBottomRight = System.Drawing.Color.White;
-            this.bunifuGradientPanel2.GradientTopLeft = System.Drawing.Color.White;
-            this.bunifuGradientPanel2.GradientTopRight = System.Drawing.Color.White;
-            this.bunifuGradientPanel2.Location = new System.Drawing.Point(476, 7);
-            this.bunifuGradientPanel2.Name = "bunifuGradientPanel2";
-            this.bunifuGradientPanel2.Quality = 10;
-            this.bunifuGradientPanel2.Size = new System.Drawing.Size(491, 70);
-            this.bunifuGradientPanel2.TabIndex = 19;
-            // 
-            // bunifuGradientPanel3
-            // 
-            this.bunifuGradientPanel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel3.BackgroundImage")));
-            this.bunifuGradientPanel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuGradientPanel3.Controls.Add(this.trbAniSp);
-            this.bunifuGradientPanel3.Controls.Add(this.label1);
-            this.bunifuGradientPanel3.GradientBottomLeft = System.Drawing.Color.White;
-            this.bunifuGradientPanel3.GradientBottomRight = System.Drawing.Color.White;
-            this.bunifuGradientPanel3.GradientTopLeft = System.Drawing.Color.White;
-            this.bunifuGradientPanel3.GradientTopRight = System.Drawing.Color.White;
-            this.bunifuGradientPanel3.Location = new System.Drawing.Point(12, 556);
-            this.bunifuGradientPanel3.Name = "bunifuGradientPanel3";
-            this.bunifuGradientPanel3.Quality = 10;
-            this.bunifuGradientPanel3.Size = new System.Drawing.Size(893, 93);
-            this.bunifuGradientPanel3.TabIndex = 20;
-            // 
-            // bunifuCustomLabel1
-            // 
-            this.bunifuCustomLabel1.AutoSize = true;
-            this.bunifuCustomLabel1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuCustomLabel1.Location = new System.Drawing.Point(509, 536);
-            this.bunifuCustomLabel1.Name = "bunifuCustomLabel1";
-            this.bunifuCustomLabel1.Size = new System.Drawing.Size(68, 17);
-            this.bunifuCustomLabel1.TabIndex = 8;
-            this.bunifuCustomLabel1.Text = "Animation";
             // 
             // panelScroll
             // 
@@ -292,31 +221,69 @@
             this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
             this.panelDraw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnMouseUp);
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.tbInput);
+            this.panel1.Controls.Add(this.btDelFst);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.btDelLast);
+            this.panel1.Controls.Add(this.btAddFirst);
+            this.panel1.Controls.Add(this.btAddLast);
+            this.panel1.Controls.Add(this.btCreatNew);
+            this.panel1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(457, 65);
+            this.panel1.TabIndex = 22;
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.tbIndex);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.btDelBefore);
+            this.panel2.Controls.Add(this.btAddBefore);
+            this.panel2.Controls.Add(this.btDelAfter);
+            this.panel2.Controls.Add(this.btAddAfter);
+            this.panel2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel2.Location = new System.Drawing.Point(473, 12);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(488, 65);
+            this.panel2.TabIndex = 23;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.trbAniSp);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Location = new System.Drawing.Point(482, 549);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(503, 100);
+            this.panel3.TabIndex = 24;
+            // 
             // FrmList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1350, 661);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelScroll);
-            this.Controls.Add(this.bunifuGradientPanel3);
-            this.Controls.Add(this.bunifuGradientPanel2);
-            this.Controls.Add(this.bunifuGradientPanel1);
-            this.Controls.Add(this.bunifuCustomLabel1);
             this.Name = "FrmList";
             this.Text = "List";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Mh_Stack_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSp)).EndInit();
-            this.bunifuGradientPanel1.ResumeLayout(false);
-            this.bunifuGradientPanel1.PerformLayout();
-            this.bunifuGradientPanel2.ResumeLayout(false);
-            this.bunifuGradientPanel2.PerformLayout();
-            this.bunifuGradientPanel3.ResumeLayout(false);
-            this.bunifuGradientPanel3.PerformLayout();
             this.panelScroll.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -337,11 +304,11 @@
         private System.Windows.Forms.Button btDelAfter;
         private System.Windows.Forms.Button btDelBefore;
         private System.Windows.Forms.Button btCreatNew;
-        private Bunifu.Framework.UI.BunifuGradientPanel bunifuGradientPanel1;
-        private Bunifu.Framework.UI.BunifuGradientPanel bunifuGradientPanel2;
-        private Bunifu.Framework.UI.BunifuGradientPanel bunifuGradientPanel3;
-        private Bunifu.Framework.UI.BunifuCustomLabel bunifuCustomLabel1;
+       
         private System.Windows.Forms.Panel panelScroll;
         internal System.Windows.Forms.Panel panelDraw;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
     }
 }
