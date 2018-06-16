@@ -16,9 +16,9 @@ namespace Mh_chinh
         List<Timer> myTimer;      
         int speed;       
         int max_Element;
-        int index; // Xác định timer vừa dừng khi bấm nút pause
+        //int index; // Xác định timer vừa dừng khi bấm nút pause
         bool flag;
-        bool pause;
+        //bool pause;
         Container container;
         public FrmQueue()
         {
@@ -34,21 +34,20 @@ namespace Mh_chinh
             speed = 10 ;
             max_Element = 10;
             flag = false;
-            pause = false;
-
-            
+            //pause = false;                       
             container = new Container(new Point(120, 40), 80, max_Element * 40);
-
-            myTimer.Add(timerEnqueue1);
-            myTimer.Add(timerEnqueue2);
-            myTimer.Add(timerDequeue1);
-            myTimer.Add(timerDequeue2);
-            myTimer.Add(timerDequeue3);
+            panelDraw.Paint += new PaintEventHandler(Init);
+            panelDraw.Paint += new PaintEventHandler(Draw_Queue);
+            //myTimer.Add(timerEnqueue1);
+            //myTimer.Add(timerEnqueue2);
+            //myTimer.Add(timerDequeue1);
+            //myTimer.Add(timerDequeue2);
+            //myTimer.Add(timerDequeue3);
         }
 
         private void FrmQueue_Load(object sender, EventArgs e)
         {
-            panelDraw.Paint += new PaintEventHandler(Init);
+            
             tbMElement.Text = max_Element.ToString();
             
         }
@@ -89,7 +88,7 @@ namespace Mh_chinh
                 {
                     max_Element = Int16.Parse(tbMElement.Text);
                     container = new Container(new Point(120, 40), 80, max_Element * 40);
-                    panelDraw.Paint += new PaintEventHandler(Init);
+                    //panelDraw.Paint += new PaintEventHandler(Init);
 
                     while (container.Pos.Y + container.Rec.Height >= panelDraw.Height) //chỉnh kích thước panel vẽ
                         panelDraw.Height = panelDraw.Height + 40;
@@ -101,9 +100,9 @@ namespace Mh_chinh
                 tbMElement.Text = max_Element.ToString();
 
                 timerEnqueue1.Interval = trbAniSpeed.Value;
-                timerEnqueue1.Enabled = true;              
-                panelDraw.Paint += new PaintEventHandler(Draw_Queue);
-                
+                timerEnqueue1.Enabled = true;
+                //panelDraw.Paint += new PaintEventHandler(Draw_Queue);
+                tbInput.Text = string.Empty;
             }
             else MessageBox.Show("Thông tin thiếu hoặc node đã có trong queue");
 
@@ -142,7 +141,7 @@ namespace Mh_chinh
                 
                 timerDequeue1 .Interval = trbAniSpeed.Value;
                 timerDequeue1.Enabled = true;               
-                panelDraw.Paint += new PaintEventHandler(Draw_Queue);
+                //panelDraw.Paint += new PaintEventHandler(Draw_Queue);
                 
                 
             }
@@ -171,7 +170,8 @@ namespace Mh_chinh
             max_Element++;
             tbMElement.Text = max_Element.ToString();
             myQueue.RemoveAt(0);
-            Invalidate();
+
+            panelDraw.Invalidate();
             timerDequeue2.Stop();
 
 
@@ -212,7 +212,7 @@ namespace Mh_chinh
 
                     max_Element--;
                     tbMElement.Text = max_Element.ToString();
-                    panelDraw.Paint += new PaintEventHandler(Draw_Queue);
+                    panelDraw.Invalidate();
                     
                 }
                 
@@ -231,8 +231,9 @@ namespace Mh_chinh
                     myQueue[0] = new Node(myQueue[0].Info,
                                 new Point(e.X, e.Y));
                 }
+                panelDraw.Invalidate();
             }
-            panelDraw.Invalidate();
+            
         }
 
         private void panelDraw_MouseMove(object sender, MouseEventArgs e)
@@ -243,9 +244,10 @@ namespace Mh_chinh
                 {
                     myQueue[0] = new Node(myQueue[0].Info,
                                 new Point(e.X, e.Y));
+                    panelDraw.Invalidate();
                 }
             }
-            panelDraw.Invalidate();
+            
         }
 
         private void panelDraw_MouseUp(object sender, MouseEventArgs e)
@@ -263,8 +265,9 @@ namespace Mh_chinh
                     }
                     flag = false;
                 }
+                panelDraw.Invalidate();
             }
-            panelDraw.Invalidate();
+           
         }
     }
 }

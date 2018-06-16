@@ -216,6 +216,7 @@ namespace Mh_chinh
                     myListNode[myListNode.Count - 1].Pos.Y + myListNode[myListNode.Count - 1].Rec.Height);
             }
             panelDraw.Invalidate();
+            tbInput.Text = String.Empty;
             t.Stop();
         }
 
@@ -350,6 +351,8 @@ namespace Mh_chinh
                     timer1.Interval = 60;
                     timer1.Tick += new EventHandler(timerAddAfter1_Tick);
                 }
+                tbInput.Text = string.Empty;
+                tbIndex.Text = string.Empty;
             }
             else MessageBox.Show("Lỗi nhập giá trị");
         }
@@ -380,6 +383,7 @@ namespace Mh_chinh
                     timer1.Tick += new EventHandler(timerDelAfter1_Tick);
                     //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                 }
+                tbIndex.Text = string.Empty;
             }
             else MessageBox.Show("Lỗi nhập giá trị hoặc List trống");
         }
@@ -500,7 +504,8 @@ namespace Mh_chinh
                 myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height  / 2);
             panelDraw.Invalidate();
             t.Stop();
-
+            tbIndex.Text = string.Empty;
+            tbInput.Text = string.Empty;
         }
 
         //Xóa 1 node sau 1 node cho trước
@@ -593,6 +598,7 @@ namespace Mh_chinh
                 Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                     myListNode[0].Pos.Y + myListNode[0].Rec.Height);
                 panelDraw.Invalidate();
+                tbIndex.Text = string.Empty;
             }
             else t.Stop();
         }
@@ -621,8 +627,7 @@ namespace Mh_chinh
                     
                     myListNode.Insert(0, node);
                 }
-
-                panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
+                tbInput.Text = string.Empty;
                 Timer timer1 = new Timer();
                 timer1.Enabled = true;
                 timer1.Interval = trbAniSp .Value;
@@ -682,6 +687,7 @@ namespace Mh_chinh
 
             Timer timer = (Timer)sender;
             timer.Stop();
+            
             panelDraw.Invalidate();
         }
 
@@ -915,7 +921,7 @@ namespace Mh_chinh
             Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
             Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                 myListNode[0].Pos.Y + myListNode[0].Rec.Height);
-
+            panelDraw.Invalidate();
             //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
         }
 

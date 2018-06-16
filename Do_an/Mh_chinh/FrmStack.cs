@@ -28,6 +28,8 @@ namespace Mh_chinh
             flag = false;
             max_Element = 10;
             container = new Container(new Point(120, 40), 80, max_Element * 40);
+            panelDraw.Paint += new PaintEventHandler(Init);
+            panelDraw.Paint += new PaintEventHandler(Draw_Stack);
         }
 
         public void Init(object sender, PaintEventArgs pea)
@@ -37,7 +39,7 @@ namespace Mh_chinh
 
         private void FrmStack_Load(object sender, EventArgs e)
         {
-            panelDraw.Paint += new PaintEventHandler(Init);
+            //panelDraw.Paint += new PaintEventHandler(Init);
             tbMElement.Text = max_Element.ToString();
         }
 
@@ -83,8 +85,9 @@ namespace Mh_chinh
                 
                 timerPush1.Interval = trbAniSpeed.Value;
                 timerPush1.Enabled = true;
-                
-                panelDraw.Paint += new PaintEventHandler(Draw_Stack);
+
+                //panelDraw.Paint += new PaintEventHandler(Draw_Stack);
+                tbInput.Text = string.Empty;
             }
             else MessageBox.Show("Thông tin thiếu hoặc node đã có trong stack");
         }
@@ -126,7 +129,7 @@ namespace Mh_chinh
                 timerPop1.Interval = trbAniSpeed.Value;
                 timerPop1.Enabled = true;
                 
-                panelDraw.Paint += new PaintEventHandler(Draw_Stack);
+                //panelDraw.Paint += new PaintEventHandler(Draw_Stack);
             }
             else MessageBox.Show("Stack trống");
         }
@@ -191,7 +194,7 @@ namespace Mh_chinh
                     myStack.Insert(0, node);
                     max_Element--;
                     tbMElement.Text = max_Element.ToString();
-                    panelDraw.Paint += new PaintEventHandler(Draw_Stack);
+                    panelDraw.Invalidate();
                 }
                 
             }
@@ -224,10 +227,11 @@ namespace Mh_chinh
                 {
                     myStack[0] = new Node(myStack[0].Info,
                                 new Point(e.X, e.Y));
+                    panelDraw.Invalidate();
                 }
             }
 
-            panelDraw.Invalidate();
+            
         }
 
         private void panelDraw_MouseUp(object sender, MouseEventArgs e)
@@ -247,9 +251,10 @@ namespace Mh_chinh
                         
                     }                    
                     flag = false;
+                    panelDraw.Invalidate();
                 }              
             }
-            panelDraw.Invalidate();
+            
         }
 
         
