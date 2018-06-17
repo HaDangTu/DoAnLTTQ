@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStack));
             this.tbInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btPush = new System.Windows.Forms.Button();
@@ -108,7 +109,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(486, 630);
+            this.label2.Location = new System.Drawing.Point(483, 614);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 13);
             this.label2.TabIndex = 5;
@@ -134,7 +135,7 @@
             // btCreate
             // 
             this.btCreate.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCreate.Location = new System.Drawing.Point(564, 23);
+            this.btCreate.Location = new System.Drawing.Point(228, 44);
             this.btCreate.Name = "btCreate";
             this.btCreate.Size = new System.Drawing.Size(75, 23);
             this.btCreate.TabIndex = 8;
@@ -153,7 +154,7 @@
             // 
             // tbMElement
             // 
-            this.tbMElement.Location = new System.Drawing.Point(228, 14);
+            this.tbMElement.Location = new System.Drawing.Point(233, 13);
             this.tbMElement.Name = "tbMElement";
             this.tbMElement.Size = new System.Drawing.Size(100, 22);
             this.tbMElement.TabIndex = 10;
@@ -166,6 +167,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.tbInput);
             this.panel1.Controls.Add(this.btPush);
+            this.panel1.Controls.Add(this.btCreate);
             this.panel1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(12, 23);
             this.panel1.Name = "panel1";
@@ -249,13 +251,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1350, 661);
             this.Controls.Add(this.panelScroll);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btCreate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.trbAniSpeed);
             this.Name = "FrmStack";

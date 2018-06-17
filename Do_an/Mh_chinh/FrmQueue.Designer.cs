@@ -50,12 +50,10 @@
             this.timerDequeue1 = new System.Windows.Forms.Timer(this.components);
             this.timerDequeue2 = new System.Windows.Forms.Timer(this.components);
             this.timerDequeue3 = new System.Windows.Forms.Timer(this.components);
-            this.panel3 = new System.Windows.Forms.Panel();
             this.panelScroll = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSpeed)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panelScroll.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +96,7 @@
             // trbAniSpeed
             // 
             this.trbAniSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.trbAniSpeed.Location = new System.Drawing.Point(434, 8);
+            this.trbAniSpeed.Location = new System.Drawing.Point(491, 588);
             this.trbAniSpeed.Maximum = 1000;
             this.trbAniSpeed.Minimum = 1;
             this.trbAniSpeed.Name = "trbAniSpeed";
@@ -111,7 +109,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(628, 56);
+            this.label2.Location = new System.Drawing.Point(653, 636);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 15);
             this.label2.TabIndex = 5;
@@ -153,9 +151,9 @@
             // btCreate
             // 
             this.btCreate.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCreate.Location = new System.Drawing.Point(587, 30);
+            this.btCreate.Location = new System.Drawing.Point(236, 33);
             this.btCreate.Name = "btCreate";
-            this.btCreate.Size = new System.Drawing.Size(97, 23);
+            this.btCreate.Size = new System.Drawing.Size(100, 23);
             this.btCreate.TabIndex = 10;
             this.btCreate.Text = "Create New";
             this.btCreate.UseVisualStyleBackColor = true;
@@ -169,6 +167,7 @@
             this.panel1.Controls.Add(this.tbMElement);
             this.panel1.Controls.Add(this.btEnqueue);
             this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.btCreate);
             this.panel1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(12, 30);
             this.panel1.Name = "panel1";
@@ -238,16 +237,6 @@
             // 
             this.timerDequeue3.Tick += new System.EventHandler(this.timerDequeue3_Tick);
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.trbAniSpeed);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel3.Location = new System.Drawing.Point(12, 597);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1092, 79);
-            this.panel3.TabIndex = 16;
-            // 
             // panelScroll
             // 
             this.panelScroll.AutoScroll = true;
@@ -262,14 +251,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1350, 688);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1350, 654);
+            this.Controls.Add(this.trbAniSpeed);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.panelScroll);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btCreate);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "FrmQueue";
             this.Text = "FrmQueue";
@@ -280,8 +270,6 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panelScroll.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -310,7 +298,6 @@
         private System.Windows.Forms.Timer timerDequeue1;
         private System.Windows.Forms.Timer timerDequeue2;
         private System.Windows.Forms.Timer timerDequeue3;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panelDraw;
         private System.Windows.Forms.Panel panelScroll;
     }

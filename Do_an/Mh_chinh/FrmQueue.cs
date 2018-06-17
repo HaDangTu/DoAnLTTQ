@@ -16,9 +16,9 @@ namespace Mh_chinh
         List<Timer> myTimer;      
         int speed;       
         int max_Element;
-        //int index; // Xác định timer vừa dừng khi bấm nút pause
+        int index; // Xác định timer vừa dừng khi bấm nút pause
         bool flag;
-        //bool pause;
+        bool pause;
         Container container;
         public FrmQueue()
         {
@@ -38,11 +38,11 @@ namespace Mh_chinh
             container = new Container(new Point(120, 40), 80, max_Element * 40);
             panelDraw.Paint += new PaintEventHandler(Init);
             panelDraw.Paint += new PaintEventHandler(Draw_Queue);
-            //myTimer.Add(timerEnqueue1);
-            //myTimer.Add(timerEnqueue2);
-            //myTimer.Add(timerDequeue1);
-            //myTimer.Add(timerDequeue2);
-            //myTimer.Add(timerDequeue3);
+            myTimer.Add(timerEnqueue1);
+            myTimer.Add(timerEnqueue2);
+            myTimer.Add(timerDequeue1);
+            myTimer.Add(timerDequeue2);
+            myTimer.Add(timerDequeue3);
         }
 
         private void FrmQueue_Load(object sender, EventArgs e)
@@ -268,6 +268,6 @@ namespace Mh_chinh
                 panelDraw.Invalidate();
             }
            
-        }
+        }     
     }
 }

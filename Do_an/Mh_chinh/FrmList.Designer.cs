@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmList));
             this.tbInput = new System.Windows.Forms.TextBox();
             this.btAddAfter = new System.Windows.Forms.Button();
             this.btAddBefore = new System.Windows.Forms.Button();
@@ -47,12 +48,10 @@
             this.panelDraw = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trbAniSp)).BeginInit();
             this.panelScroll.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbInput
@@ -61,7 +60,6 @@
             this.tbInput.Name = "tbInput";
             this.tbInput.Size = new System.Drawing.Size(180, 22);
             this.tbInput.TabIndex = 0;
-            this.tbInput.TextChanged += new System.EventHandler(this.tbInput_TextChanged);
             // 
             // btAddAfter
             // 
@@ -106,7 +104,7 @@
             // trbAniSp
             // 
             this.trbAniSp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.trbAniSp.Location = new System.Drawing.Point(7, 33);
+            this.trbAniSp.Location = new System.Drawing.Point(424, 556);
             this.trbAniSp.Maximum = 1000;
             this.trbAniSp.Minimum = 1;
             this.trbAniSp.Name = "trbAniSp";
@@ -118,7 +116,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(195, 65);
+            this.label1.Location = new System.Drawing.Point(598, 618);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 7;
@@ -149,7 +147,6 @@
             this.label2.Size = new System.Drawing.Size(36, 15);
             this.label2.TabIndex = 12;
             this.label2.Text = "Input";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -252,22 +249,15 @@
             this.panel2.Size = new System.Drawing.Size(488, 65);
             this.panel2.TabIndex = 23;
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.trbAniSp);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Location = new System.Drawing.Point(482, 549);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(503, 100);
-            this.panel3.TabIndex = 24;
-            // 
             // FrmList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1350, 661);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.trbAniSp);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelScroll);
@@ -281,9 +271,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -309,6 +298,5 @@
         internal System.Windows.Forms.Panel panelDraw;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
     }
 }

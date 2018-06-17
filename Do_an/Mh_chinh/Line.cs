@@ -66,10 +66,10 @@ namespace Mh_chinh
         {            
             g.DrawLine(pen, start, end);
         }
-        public void Clear_Line(Graphics g)
-        {
-            pen = new Pen(new SolidBrush(Color.White));
-            g.DrawLine(pen, start, end);
-        }
+        //public void Clear_Line(Graphics g)
+        //{
+        //    pen = new Pen(new SolidBrush(Color.White));
+        //    g.DrawLine(pen, start, end);
+        //}
     }
 }

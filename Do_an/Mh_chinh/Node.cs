@@ -122,13 +122,13 @@ namespace Mh_chinh
 
         }
 
-        public void Clear_node(Graphics g)
-        {
-            pen = new Pen(new SolidBrush(Color.White));
-            g.DrawString(Info, new Font("Arial", 14),
-               new SolidBrush(Color.White), Rec);
-            g.DrawRectangle(pen, Rec);           
-            //Link.Clear_Line(g);
-        }
+        //public void Clear_node(Graphics g)
+        //{
+        //    pen = new Pen(new SolidBrush(Color.White));
+        //    g.DrawString(Info, new Font("Arial", 14),
+        //       new SolidBrush(Color.White), Rec);
+        //    g.DrawRectangle(pen, Rec);           
+        //    //Link.Clear_Line(g);
+        //}
     }
 }

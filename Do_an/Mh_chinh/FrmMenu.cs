@@ -37,5 +37,6 @@ namespace Mh_chinh
             frmQueue.MdiParent = this;
             frmQueue.Show();
         }
+       
     }
 }
