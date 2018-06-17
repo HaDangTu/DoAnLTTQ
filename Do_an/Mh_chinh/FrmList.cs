@@ -609,82 +609,69 @@ namespace Mh_chinh
         //Thêm node cuối
         private void btAddLast_Click(object sender, EventArgs e)
         {
-            if (Check(tbInput.Text))
+            if (Check(tbInput.Text) == true && isValidNode(tbInput.Text) == true)
             {
                 AutoResizePanel();
-                if (myListNode.Count == 0)
-                {
-                    Node node = new Node(tbInput.Text, new Point(0, 260));
-                    //myListNode.Add(node);
-                    myListNode.Insert(0, node);
-                }
-                else
-                {
+                Node node = new Node(tbInput.Text, new Point(240, 40));
+                myListNode.Insert(0, node);
 
-                    Node node = new Node(tbInput.Text,
-                        new Point(myListNode[0].Pos.X - myListNode.Count * 120, myListNode[0].Pos.Y));
-                    //myListNode.Add(node);
-                    
-                    myListNode.Insert(0, node);
-                }
 
+                //panelDraw.Paint += new PaintEventHandler(Draw_LinkList);
                 Timer timer1 = new Timer();
                 timer1.Enabled = true;
-                timer1.Interval = trbAniSp .Value;
+                timer1.Interval = trbAniSp.Value;
                 timer1.Tick += new EventHandler(TimerAddLast_Tick);
             }
-            else MessageBox.Show("Thông tin Node bị thiếu");
+            else MessageBox.Show("Thông tin Node bị thiếu hoặc Node đã có trong danh sách");
         }
 
         private void TimerAddLast_Tick(object sender, EventArgs e)
         {
             Timer timer = (Timer)sender;
-
-
-            int temp = myListNode[0].Pos.X;
-            if (temp < myListNode.Count * 120)
+            Timer t = (Timer)sender;
+            if (myListNode.Count > 1)
             {
-                for (int i = myListNode.Count; i > 1; i--)
-                {
-                    myListNode[i - 1].Link.Start = new Point(myListNode[i - 1].Pos.X + myListNode[i - 1].Rec.Width, myListNode[i - 1].Pos.Y + myListNode[i - 1].Rec.Height / 2);
-                    myListNode[i - 1].Link.End = new Point(myListNode[i - 2].Pos.X, myListNode[i - 2].Pos.Y + myListNode[i - 2].Rec.Height / 2);
-                }
-
-                //thay đổi vị trí của myListNode[0]
-                temp += speed;
-                myListNode[0] = new Node(myListNode[0].Info,
-                    new Point(temp, myListNode[0].Pos.Y));
-
-                //Head
-
-                Head.Link.Start = new Point(Head.Pos.X + 40, Head.Pos.Y + 40);
-                Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + 40, myListNode[myListNode.Count - 1].Pos.Y);
-
-                //Thiết lập vị trí mũi tên của tail khi di chuyển danh sách về phía sau
-                Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
-                Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
-                    myListNode[0].Pos.Y + myListNode[0].Rec.Height);
-
-                //Lưu ý: do hàm Add trong List chỉ thêm vào vị trí cuối của List nên đầu List sẽ là
-                //phần tử myListNode[myListNode.Count - 1] và phần tử cuối của list là myListNode[0];
-                panelDraw.Invalidate();
+                myListNode[1].Link.Start = new Point(myListNode[1].Pos.X + myListNode[1].Rec.Width,
+                    myListNode[1].Pos.Y + myListNode[1].Rec.Height / 2);
+                myListNode[1].Link.End = new Point(myListNode[0].Pos.X, myListNode[1].Link.Start.Y);
             }
             else
             {
-                timer.Stop();
-                Timer timer1 = new Timer();
-                timer.Interval = trbAniSp .Value;
-                timer.Tick += new EventHandler(timerAddLast_Tick1);
-                timer.Enabled = true;
+                Head.Link.Start = new Point(Head.Pos.X + Head.Rec.Width / 2, Head.Pos.Y + Head.Rec.Height);
+                Head.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2, myListNode[0].Pos.Y);
+
+                Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
+                Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
+                    myListNode[0].Pos.Y + myListNode[0].Rec.Height);
             }
+            panelDraw.Invalidate();
+            t.Stop();
+
+            Timer timer2 = new Timer();
+            timer2.Interval = trbAniSp.Value;
+            timer2.Enabled = true;
+            timer2.Tick += new EventHandler(timerAddLast_Tick1);
         }
 
         private void timerAddLast_Tick1(object sender, EventArgs e)
         {
             //Tail
-            Tail.Link.Start = new Point(Tail.Pos.X + 40, Tail.Pos.Y);
-            Tail.Link.End = new Point(myListNode[0].Pos.X + 40, myListNode[0].Pos.Y + 40);
+            if (myListNode.Count > 1)
+            {
+                myListNode[0] = new Node(myListNode[0].Info, new Point(myListNode[1].Pos.X + 120, myListNode[1].Pos.Y));
 
+                myListNode[1].Link.End = new Point(myListNode[0].Pos.X, myListNode[1].Link.Start.Y);
+            }
+            else
+            {
+                myListNode[0] = new Node(myListNode[0].Info, new Point(120, 180));
+                Head.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
+                    myListNode[0].Pos.Y);
+                
+            }
+            Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2, 
+                myListNode [0].Pos.Y + myListNode [0].Rec.Height);
+            
             Timer timer = (Timer)sender;
             timer.Stop();
             tbInput.Text = string.Empty;
