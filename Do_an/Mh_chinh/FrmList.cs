@@ -347,6 +347,9 @@ namespace Mh_chinh
         //Thêm 1 node vào trước 1 node cho trước
         private void btAddBefore_Click(object sender, EventArgs e)
         {
+            //Ta có danh sách node như sau node[0], node[1], node [2], node[3], node[4]
+            //Khi cần thêm 1 node vào trước node[2] đồng nghĩa với việc thêm 1 node vào sau node[1]
+            //=> Sử dụng lại hàm của Add After
             if (Check(tbInput.Text) == true && (Check(tbIndex.Text) == true)
                 && isValidNode (tbInput.Text))
             {
@@ -381,13 +384,16 @@ namespace Mh_chinh
         //Xóa node trước 1 node cho trước
         private void btDelBefore_Click(object sender, EventArgs e)
         {
+            //Ta có danh sách node như sau node[0], node[1], node [2], node[3], node[4]
+            //Khi cần xóa 1 node vào trước node[2] đồng nghĩa với việc thêm 1 xóa vào sau node[1]
+            //=> Sử dụng lại hàm của Delete After
             if (Check(tbIndex.Text) == true
                 && myListNode.Count > 0)
             {
                 index = Find_Node(tbIndex.Text);
                 if (index == myListNode.Count - 1)
                     MessageBox.Show("Không có phần tử nào ở phía trước để xóa");
-                else if (index == myListNode.Count - 2)
+                else if (index == myListNode.Count - 2) // Trường hợp node phía trước là node đầu
                 {
                     Timer timer1 = new Timer();
                     timer1.Interval = trbAniSp.Value;
