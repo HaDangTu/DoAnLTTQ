@@ -16,8 +16,8 @@ namespace Mh_chinh
         List<Node> myListNode;
         Node Head;
         Node Tail;
-        int speed;
-        int index;
+        int speed; //Khoảng dịch chuyển sau mỗi lần tick
+        int index; //Xác định vị trí node cần thêm phía trước và phía sau
         bool flag = false; 
         int collison; //Xác định node đang kéo thả
         public FrmList()
@@ -107,6 +107,10 @@ namespace Mh_chinh
         public void TimerAddFirst1_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //Khi số node trong danh sách có nhiều hơn 1 node thì 
+            //Khởi tạo link node mới thêm đến node đầu của danh sách
+            //Khi số node trong danh sách là 1 node thì
+            //Khởi tạo mũi tên của con trỏ head và tail tới node vừa thêm
             if (myListNode.Count > 1)
             {
                 myListNode[myListNode.Count - 1].Link.Start = new Point(myListNode[myListNode.Count - 1].Pos.X +
@@ -156,6 +160,10 @@ namespace Mh_chinh
         public void timerAddFirst3_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //Di chuyển các node đến vị trí mới
+            //node[0] sẽ di chuyển tới các node có hoành độ là 120, 240, 360
+            //=> hoảnh độ của node[0] = số phần tử trong myListNode * 120 
+            //120 = chiều dài của node + chiều dài của liên kết giữa 2 node
             int i;
                 if (myListNode[0].Pos.X < myListNode.Count * 120)
                 {
@@ -191,6 +199,13 @@ namespace Mh_chinh
         public void timerAddFirst4_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //Đưa node ms về vị trí trong list
+            //Khi danh sách có nhiều hơn 1 node
+            //      Cập nhật lại tọa độ node mới tạo, tọa độ liên kết đến node khác
+            //      Đưa mũi tên của con trỏ head từ node head cũ sang node head mới
+            //Khi danh sách chỉ có 1 node
+            //      Cập nhật lại tọa độ cho node mới tạo
+            //      Đưa mũi tên của con trỏ head, tail tới vị trí node mới
             if (myListNode.Count > 1)
             {
                 myListNode[myListNode.Count - 1] = new Node(myListNode[myListNode.Count - 1].Info,
@@ -237,10 +252,14 @@ namespace Mh_chinh
 
         private void timerDelFirst1_Tick(object sender, EventArgs e)
         {
+            //Khi trong danh sách có nhiều hơn 1 node
+            //đưa vị trí con trỏ head về node myListNode[myListNode.Count - 2]
+            //Khi trong danh sách có 1 node thì
+            //Xóa bỏ liên kết từ head và tail tới node cần xóa
             Timer timer = (Timer)sender;
             if (myListNode.Count > 1)
             {
-                //đưa vị trí con trỏ head về node myListNode[myListNode.Count - 2]             
+                             
                 Head.Link.End = new Point(myListNode[myListNode.Count - 2].Pos.X + myListNode[myListNode.Count - 2].Rec.Width / 2,
                     myListNode[myListNode.Count - 2].Pos.Y);                
             }
@@ -293,6 +312,8 @@ namespace Mh_chinh
         private void timerDelFirst4_Tick(object sender, EventArgs e)
         {
             Timer timer = (Timer)sender;
+            //Dịch chuyển các phần tử trong mảng để lấp vị trí của node vừa xóa
+            //Lấy hoành độ 120 làm mốc để dịch chuyển
             if (myListNode.Count > 0)
             {
                 if (myListNode[myListNode.Count - 1].Pos.X > 120)
@@ -394,6 +415,10 @@ namespace Mh_chinh
         //Thêm 1 node vào sau 1 node cho trước
         private void btAddAfter_Click(object sender, EventArgs e)
         {
+            //Tìm vị trí "index" của node cần thêm vào phía sau của node đó
+            //Nếu node là node[0] thì gọi timerAddLast_Tick
+            //Else thêm node vào vị trí index -> index++
+
             if (Check(tbInput.Text) == true && (Check(tbIndex.Text) == true) 
                 && isValidNode(tbInput.Text) == true)
             {
@@ -426,7 +451,7 @@ namespace Mh_chinh
         private void timerAddAfter1_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
-           
+            //Vẽ liên kết từ node[index - 1] (mới thêm) đến node[index - 2] (node phía sau của node[index] cũ)
 
             myListNode[index - 1].Link.Start = new Point(myListNode[index - 1].Pos.X + myListNode[index - 1].Rec.Width,
                 myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
@@ -445,6 +470,7 @@ namespace Mh_chinh
         private void timerAddAfter2_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //vẽ liên kết từ node[index](node cần thêm phía sau) tới node[index - 1] (tới node mới)
             myListNode[index].Link.End = new Point(myListNode[index - 1].Pos.X,
                myListNode[index - 1].Pos.Y + myListNode[index - 1].Rec.Height / 2);
 
@@ -460,6 +486,7 @@ namespace Mh_chinh
         private void timerAddAfter3_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //Dịch chuyển các phần tử từ vị trí 0 đến vị trí index - 2 theo công thức giống vs công thức trong Add First
             if (myListNode[0].Pos.X < myListNode.Count * 120)
             {
                 int i;
@@ -492,6 +519,8 @@ namespace Mh_chinh
         private void timerAddAfter4_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //đưa node ms thêm về vị trí trong danh sách
+            //Cập nhật lại các liên kết từ node mới đến node khác và từ node khác đến node mới
             myListNode[index - 1] = new Node(myListNode[index - 1].Info,
             new Point(myListNode[index].Pos.X + 120, myListNode[index].Pos.Y));
 
@@ -511,6 +540,10 @@ namespace Mh_chinh
         //Xóa 1 node sau 1 node cho trước
         private void btDelAfter_Click(object sender, EventArgs e)
         {
+            //Tìm node cần xóa ở phía sau
+            //Nếu index = 0 thì thông báo lỗi
+            //Nếu index = 1 thì gọi Delete Last
+            //Trường hợp khác thì xử lí bình thường
             if (Check(tbIndex .Text) == true)
             {
                 index = Find_Node(tbIndex.Text);
@@ -537,6 +570,7 @@ namespace Mh_chinh
         private void timerDelAfter1_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //Xóa liên kết từ node[index] đến node phía sau nó
             myListNode[index].Link.End = new Point(myListNode[index - 2].Pos.X,
                 myListNode[index - 2].Pos.Y + myListNode[index - 2].Rec.Height / 2);
             panelDraw.Invalidate();
@@ -551,6 +585,7 @@ namespace Mh_chinh
         private void timerDelAfter2_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            // xóa liên kết từ node[index - 1] đến node phía sau nó
             myListNode[index - 1].Link.End = myListNode[index - 1].Link.Start;
             panelDraw.Invalidate();
             t.Stop();
@@ -564,6 +599,8 @@ namespace Mh_chinh
         private void timerDelAfter3_Tick (object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //Xóa node ra khỏi danh sách
+            //index-- 
             myListNode.RemoveAt(index - 1);
             index--;
             panelDraw.Invalidate();
@@ -578,6 +615,9 @@ namespace Mh_chinh
         private void timerDelAfter4_Tick(object sender, EventArgs e)
         {
             Timer t = (Timer)sender;
+            //Dịch chuyển các node từ vị trí 0 đến node index - 1 theo công thức đã nêu ở phần add First
+            //vẽ liên kết mới từ node[index] đến node phía sau nó
+            //cập nhật lại liên kết của con trỏ tail
             int i;
             if (myListNode[index - 1].Pos.X > myListNode[index].Pos.X + 120)
             {
