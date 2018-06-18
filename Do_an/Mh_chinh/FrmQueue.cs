@@ -13,13 +13,13 @@ namespace Mh_chinh
     public partial class FrmQueue : Form
     {
         List<Node> myQueue;
-        List<Timer> myTimer;      
+        //List<Timer> myTimer;      
         int speed;       
-        int max_Element;
-        int index; // Xác định timer vừa dừng khi bấm nút pause
+        int max_Element;  //Số phần tử tối đa Queue có thể chứa
+        //int index; // Xác định timer vừa dừng khi bấm nút pause
         bool flag;
-        bool pause;
-        Container container;
+        //bool pause;
+        Container container; //Kích thước queue
         public FrmQueue()
         {
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace Mh_chinh
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | 
                 ControlStyles.DoubleBuffer, true);           
             myQueue = new List<Node>();
-            myTimer = new List<Timer>();
+            //myTimer = new List<Timer>();
             speed = 10 ;
             max_Element = 10;
             flag = false;
@@ -38,11 +38,11 @@ namespace Mh_chinh
             container = new Container(new Point(120, 40), 80, max_Element * 40);
             panelDraw.Paint += new PaintEventHandler(Init);
             panelDraw.Paint += new PaintEventHandler(Draw_Queue);
-            myTimer.Add(timerEnqueue1);
-            myTimer.Add(timerEnqueue2);
-            myTimer.Add(timerDequeue1);
-            myTimer.Add(timerDequeue2);
-            myTimer.Add(timerDequeue3);
+            //myTimer.Add(timerEnqueue1);
+            //myTimer.Add(timerEnqueue2);
+            //myTimer.Add(timerDequeue1);
+            //myTimer.Add(timerDequeue2);
+            //myTimer.Add(timerDequeue3);
         }
 
         private void FrmQueue_Load(object sender, EventArgs e)
@@ -109,6 +109,7 @@ namespace Mh_chinh
         }
         private void timerEnqueue1_Tick(object sender, EventArgs e)
         {
+            //Node mới từ vị trí khởi tạo vào trong queue
             if (myQueue[myQueue.Count - 1].Pos.X > container.Pos.X)
                 myQueue[myQueue.Count - 1] = new Node(myQueue[myQueue.Count - 1].Info,
                     new Point(myQueue[myQueue.Count - 1].Pos.X - speed, myQueue[myQueue.Count - 1].Pos.Y));
@@ -125,6 +126,7 @@ namespace Mh_chinh
 
         private void timerEnqueue2_Tick(object sender, EventArgs e)
         {
+            //đưa node mới tới vị trí cuối cùng trong queue
             if (myQueue[myQueue.Count - 1].Pos.Y + 40 < myQueue.Count * 40 + 40)//40 là container.Pos.Y
 
                 myQueue[myQueue.Count - 1] = new Node(myQueue[myQueue.Count - 1].Info,
@@ -150,6 +152,7 @@ namespace Mh_chinh
 
         private void timerDequeue1_Tick(object sender, EventArgs e)
         {
+            //Lấy node vào đầu tiên ra khỏi queue
             if (myQueue[0].Pos.X < 400)
                 myQueue[0] = new Node(myQueue[0].Info,
                     new Point(myQueue[0].Pos.X + speed, myQueue[0].Pos.Y));
@@ -166,6 +169,9 @@ namespace Mh_chinh
 
         private void timerDequeue2_Tick(object sender, EventArgs e)
         {
+            //tăng giá trị max_Element
+            //lấy giá trị node vừa lấy ra khỏi queue
+            //Xóa node khỏi queue
             tbDeqVal.Text = myQueue[0].Info;
             max_Element++;
             tbMElement.Text = max_Element.ToString();
@@ -181,6 +187,7 @@ namespace Mh_chinh
 
         private void timerDequeue3_Tick(object sender, EventArgs e)
         {
+            //dịch chuyển node[0] mới lên đầu queue
             if (myQueue.Count > 0)
             {
                 if (myQueue[0].Pos.Y > container.Pos.Y)

@@ -372,7 +372,7 @@ namespace Mh_chinh
                     index++;
                     Timer timer1 = new Timer();
                     timer1.Enabled = true;
-                    timer1.Interval = 60;
+                    timer1.Interval = trbAniSp .Value;
                     timer1.Tick += new EventHandler(timerAddAfter1_Tick);
                 }
                 tbInput.Text = string.Empty;
@@ -814,7 +814,7 @@ namespace Mh_chinh
                             myListNode[i].Pos.Y + myListNode[i].Rec.Height / 2);
                     }
                     else
-                        if (i == 0)
+                        if (i == 0) //node đc kéo thả là node tail
                     {
                         myListNode[i] = new Node(myListNode[i].Info,
                           new Point(e.X, e.Y));
@@ -825,7 +825,7 @@ namespace Mh_chinh
                         Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                             myListNode[0].Pos.Y + myListNode[0].Rec.Height);
                     }
-                    else
+                    else //node đc kéo thả là node đầu
                     {
                         myListNode[i] = new Node(myListNode[i].Info,
                           new Point(e.X, e.Y),
@@ -856,19 +856,21 @@ namespace Mh_chinh
                         myListNode[collison].Pos.Y + myListNode[collison].Rec.Height / 2);
                 }
                 else
-                        if (collison == 0)
+                        if (collison == 0)//node đc kéo thả là node tail
                 {
+                    //đưa node theo tọa độ của chuột
                     myListNode[collison] = new Node(myListNode[collison].Info,
                           new Point(e.X, e.Y));
-
+                    //cập nhật lại các liên kết theo node
                     myListNode[collison + 1].Link.End = new Point(myListNode[collison].Pos.X,
                         myListNode[collison].Pos.Y + myListNode[collison].Rec.Height / 2);
 
                     Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                         myListNode[0].Pos.Y + myListNode[0].Rec.Height);
                 }
-                else
+                else//node đc kéo thả là node đầu
                 {
+                    //đưa node đến vị trí của chuột và cập nhật lại các liên kết tới node
                     myListNode[collison] = new Node(myListNode[collison].Info,
                           new Point(e.X, e.Y),
                           e.X + myListNode[collison].Rec.Width, e.Y + myListNode[collison].Rec.Height / 2,
@@ -898,7 +900,7 @@ namespace Mh_chinh
                         myListNode[collison].Pos.Y + myListNode[collison].Rec.Height / 2);
                 }
                 else
-                        if (collison == 0)
+                        if (collison == 0) //node đc kéo thả là node tail
                 {
                     myListNode[collison] = new Node(myListNode[collison].Info,
                           new Point(e.X, e.Y));
@@ -909,7 +911,7 @@ namespace Mh_chinh
                     Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                         myListNode[0].Pos.Y + myListNode[0].Rec.Height);
                 }
-                else
+                else//node đc kéo thả là node đầu
                 {
                     myListNode[collison] = new Node(myListNode[collison].Info,
                           new Point(e.X, e.Y),
@@ -933,12 +935,17 @@ namespace Mh_chinh
                 myListNode.Clear();
             using (StreamReader strreader = new StreamReader("Init.txt"))
             {
+                
                 string value;
                 while ((value = strreader.ReadLine()) != null)
                 {
+                    // (+ 120) vì trong trường hợp ko có node thì node[0] sẽ ở vị trí 120
+                    // 200 = tọa độ của node + chiều dài node (200 + myListNode.Count * 120)
+                    // 200 tung độ = tung độ của node + chiều cao node / 2
+                    // 40 = chiều dài link giữa 2 node
                     myListNode.Insert(0, new Node(value,
-                        new Point(myListNode.Count * 120 + 120, 180),
-                        200 + myListNode.Count * 120, 200,
+                        new Point(myListNode.Count * 120 + 120, 180),  
+                        200 + myListNode.Count * 120, 200,             
                         200 + myListNode.Count * 120 + 40, 200));
                 }
             }
@@ -946,12 +953,12 @@ namespace Mh_chinh
                 myListNode[0].Pos,
                 myListNode[0].Link.Start.X, myListNode [0].Link .Start .Y,
                 myListNode[0].Link.Start.X, myListNode[0].Link.Start.Y);
-
+            //vẽ liên kết từ head đến node đầu
             Head.Link.Start = new Point(Head.Pos.X + Head.Rec.Width / 2,
                 Head.Pos.Y + Head.Rec.Height);
             Head.Link.End = new Point(myListNode[myListNode.Count - 1].Pos.X + myListNode[myListNode.Count - 1].Rec.Width / 2,
                 myListNode[myListNode.Count - 1].Pos.Y);
-
+            //vẽ liên kết từ tail đến node cuối
             Tail.Link.Start = new Point(Tail.Pos.X + Tail.Rec.Width / 2, Tail.Pos.Y);
             Tail.Link.End = new Point(myListNode[0].Pos.X + myListNode[0].Rec.Width / 2,
                 myListNode[0].Pos.Y + myListNode[0].Rec.Height);

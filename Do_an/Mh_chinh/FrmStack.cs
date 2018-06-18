@@ -15,7 +15,7 @@ namespace Mh_chinh
         List<Node> myStack;
         int speed;
         bool flag;
-        int max_Element;
+        int max_Element;  //Số phần tử lớn nhất mà Stack có thể lưu
         Container container;
         public FrmStack()
         {
@@ -66,6 +66,9 @@ namespace Mh_chinh
 
         private void btPush_Click(object sender, EventArgs e)
         {
+            //tạo node mới 
+            //thêm node vào Stack
+            //giảm max_Element đi 1
             if (Check(tbInput.Text) == true && isValidNode(tbInput.Text) == true)
             {
                 if (max_Element != Int16.Parse(tbMElement.Text))
@@ -94,6 +97,7 @@ namespace Mh_chinh
 
         private void timerPush1_Tick(object sender, EventArgs e)
         {
+            //Đưa node mới tạo vào trong Stack
             if (myStack[0].Pos.X > container.Pos.X)
                 myStack[0] = new Node(myStack[0].Info,
                     new Point(myStack[0].Pos.X - speed, myStack[0].Pos.Y));
@@ -110,6 +114,7 @@ namespace Mh_chinh
 
         private void timerPush2_Tick(object sender, EventArgs e)
         {
+            //Dịch chuyển node mới tạo xuống cuối stack
             if (myStack[0].Pos.Y + 40 < 40 - myStack.Count * 40 + container.Rec.Height + 40)//+ 40  vì myQueue.Count * 40 khi Count = 0 thì sẽ bị thiếu 1 đoạn là 40
             {
                 myStack[0] = new Node(myStack[0].Info,
@@ -136,6 +141,7 @@ namespace Mh_chinh
 
         private void timerPop1_Tick(object sender, EventArgs e)
         {
+            //Đưa node cuối ra khỏi stack
             if (myStack[0].Pos.Y > container.Pos.Y)
                 myStack[0] = new Node(myStack[0].Info,
                     new Point(myStack[0].Pos.X, myStack[0].Pos.Y - speed));
@@ -167,7 +173,9 @@ namespace Mh_chinh
 
         private void timerPop3_Tick(object sender, EventArgs e)
         {
-
+            //tăng max_Element lên 1 đơn vị
+            //lấy giá trị node vừa lấy ra khỏi stack
+            //xóa node khỏi stack
             tbPopVal.Text = myStack[0].Info;
             max_Element++;
             tbMElement.Text = max_Element.ToString();
