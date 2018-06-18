@@ -124,7 +124,7 @@
             // 
             // btDelFst
             // 
-            this.btDelFst.Location = new System.Drawing.Point(352, 32);
+            this.btDelFst.Location = new System.Drawing.Point(244, 33);
             this.btDelFst.Name = "btDelFst";
             this.btDelFst.Size = new System.Drawing.Size(98, 23);
             this.btDelFst.TabIndex = 10;
@@ -159,7 +159,7 @@
             // 
             // btDelLast
             // 
-            this.btDelLast.Location = new System.Drawing.Point(244, 32);
+            this.btDelLast.Location = new System.Drawing.Point(352, 33);
             this.btDelLast.Name = "btDelLast";
             this.btDelLast.Size = new System.Drawing.Size(98, 23);
             this.btDelLast.TabIndex = 14;
