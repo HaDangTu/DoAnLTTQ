@@ -940,7 +940,7 @@ namespace Mh_chinh
                 while ((value = strreader.ReadLine()) != null)
                 {
                     // (+ 120) vì trong trường hợp ko có node thì node[0] sẽ ở vị trí 120
-                    // 200 = tọa độ của node + chiều dài node (200 + myListNode.Count * 120)
+                    // 200 = tọa độ của node đầu + chiều dài node (200 + myListNode.Count * 120)
                     // 200 tung độ = tung độ của node + chiều cao node / 2
                     // 40 = chiều dài link giữa 2 node
                     myListNode.Insert(0, new Node(value,
